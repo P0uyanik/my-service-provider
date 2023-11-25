@@ -12,5 +12,30 @@ public class SubService extends Auditing {
     public Long getId() {
         return id;
     }
+    private String price ;
+    private String description ;
 
+    public SubService(String price, String description) {
+        this.price = price;
+        this.description = description;
+    }
+
+    protected SubService() {
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

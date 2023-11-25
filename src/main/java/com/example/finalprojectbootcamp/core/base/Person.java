@@ -19,7 +19,16 @@ public abstract class Person extends Auditing {
     String email;
     String password;
 
+    public Person(String name, String lastname, String username, String email, String password) {
+        this.name = name;
+        this.lastname = lastname;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
 
+    protected Person() {
+    }
 
     public Long getId() {
         return id;

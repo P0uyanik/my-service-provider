@@ -15,4 +15,20 @@ public class Service extends Auditing {
     public Long getId() {
         return id;
     }
+    private String name ;
+
+    public Service(String name) {
+        this.name = name;
+    }
+
+    protected Service() {
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
