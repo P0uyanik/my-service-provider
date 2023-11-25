@@ -1,10 +1,7 @@
 package com.example.finalprojectbootcamp.core.entities;
 
 import com.example.finalprojectbootcamp.core.base.Auditing;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -48,5 +45,17 @@ public class Offer extends Auditing {
 
     public void setDurationOfTheJobInDays(int durationOfTheJobInDays) {
         this.durationOfTheJobInDays = durationOfTheJobInDays;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "expert_fk" , referencedColumnName = "id")
+    private Expert expert ;
+
+    public Expert getExpert() {
+        return expert;
+    }
+
+    public void setExpert(Expert expert) {
+        this.expert = expert;
     }
 }
