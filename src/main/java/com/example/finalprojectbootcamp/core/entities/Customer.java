@@ -19,6 +19,17 @@ public class Customer extends Person {
 
     protected Customer() {
     }
+    @OneToMany
+    @JoinColumn(name = "customer_fk" , referencedColumnName = "id")
+    List<Order> orders = new ArrayList<>();
 
+
+    public List<Order> getOrders() {
+        return Collections.unmodifiableList(orders);
+    }
+    public Customer setOrders(Order order) {
+        orders.add(order) ;
+        return  this ;
+    }
 
 }

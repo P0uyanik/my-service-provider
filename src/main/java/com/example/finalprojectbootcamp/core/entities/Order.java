@@ -16,10 +16,10 @@ public class Order extends Auditing {
         return id;
     }
 
-    private String suggestedPrice ;
-    private  String jobDescription ;
-    private LocalDate executionTime ;
-    private String address ;
+    private String suggestedPrice;
+    private String jobDescription;
+    private LocalDate executionTime;
+    private String address;
 
     public Order(String suggestedPrice, String jobDescription, LocalDate executionTime, String address) {
         this.suggestedPrice = suggestedPrice;
@@ -64,12 +64,15 @@ public class Order extends Auditing {
     }
 
 
+    @ManyToOne
+    @JoinColumn(name = "customer_fk" , referencedColumnName = "id")
+    private Customer customer ;
 
+    public Customer getCustomer() {
+        return customer;
+    }
 
-
-
-
-
-
-
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
 }
