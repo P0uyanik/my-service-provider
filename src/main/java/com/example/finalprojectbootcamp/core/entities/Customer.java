@@ -2,10 +2,7 @@ package com.example.finalprojectbootcamp.core.entities;
 
 import com.example.finalprojectbootcamp.core.base.Person;
 import com.example.finalprojectbootcamp.core.enums.ExpertStatus;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,7 +16,7 @@ public class Customer extends Person {
 
     protected Customer() {
     }
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_fk" , referencedColumnName = "id")
     List<Order> orders = new ArrayList<>();
 
