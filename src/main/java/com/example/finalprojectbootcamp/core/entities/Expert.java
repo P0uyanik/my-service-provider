@@ -1,4 +1,10 @@
 package com.example.finalprojectbootcamp.core.entities;
 
-public class Expert {
+import com.example.finalprojectbootcamp.core.base.Person;
+import jakarta.persistence.Entity;
+
+@Entity
+public class Expert extends Person {
+
+
 }
