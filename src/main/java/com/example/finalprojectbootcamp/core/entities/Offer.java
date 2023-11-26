@@ -58,4 +58,16 @@ public class Offer extends Auditing {
     public void setExpert(Expert expert) {
         this.expert = expert;
     }
+
+    @ManyToOne
+    @JoinColumn(name = "order_fk" , referencedColumnName = "id")
+    private Order order ;
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 }

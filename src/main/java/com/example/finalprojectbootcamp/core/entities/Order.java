@@ -1,9 +1,14 @@
 package com.example.finalprojectbootcamp.core.entities;
 
 import com.example.finalprojectbootcamp.core.base.Auditing;
+import com.example.finalprojectbootcamp.core.enums.OrderStatus;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 @Entity
 @Table(name = "orders")
@@ -20,6 +25,7 @@ public class Order extends Auditing {
     private String jobDescription;
     private LocalDate executionTime;
     private String address;
+    OrderStatus orderStatus = OrderStatus.WAITING_FOR_EXPERT_BIDS ;
 
     public Order(String suggestedPrice, String jobDescription, LocalDate executionTime, String address) {
         this.suggestedPrice = suggestedPrice;
@@ -74,5 +80,20 @@ public class Order extends Auditing {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+
+
+    @OneToMany
+    @JoinColumn(name = "order_fk" , referencedColumnName = "id")
+    List<Offer> offers = new ArrayList<>() ;
+
+    public List<Offer> getOffers() {
+        return Collections.unmodifiableList(offers);
+    }
+
+    public Order setOffers(Offer offer) {
+        offers.add(offer) ;
+        return this ;
     }
 }
