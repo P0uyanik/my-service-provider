@@ -7,4 +7,6 @@ import org.springframework.stereotype.Service;
 @Service
 public interface ExpertService {
     /*1*/ void addANewExpert (Expert expert) ;
+    /*2*/ int updateExpertByPassword(long id , String password);
+    /*4*/  void deleteExpert (Expert expert) ;
 }

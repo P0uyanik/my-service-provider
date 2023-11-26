@@ -6,4 +6,5 @@ import org.springframework.stereotype.Service;
 @Service
 public interface CustomerService {
    /*1*/ void addANewCustomer (Customer customer) ;
+   /*2*/ int updateCustomerByPassword( long id , String password) ;
 }
