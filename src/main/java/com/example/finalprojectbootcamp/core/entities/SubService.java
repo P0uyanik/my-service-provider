@@ -51,4 +51,18 @@ public class SubService extends Auditing {
     public void setService(Service service) {
         this.service = service;
     }
+
+
+
+    @ManyToOne
+    @JoinColumn(name = "expert_fk" , referencedColumnName = "id")
+    private Expert expert ;
+
+    public Expert getExpert() {
+        return expert;
+    }
+
+    public void setExpert(Expert expert) {
+        this.expert = expert;
+    }
 }

@@ -4,6 +4,7 @@ import com.example.finalprojectbootcamp.core.base.Person;
 import com.example.finalprojectbootcamp.core.enums.ExpertStatus;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -41,6 +42,19 @@ public class Expert extends Person {
         this.expertStatus = expertStatus;
     }
 
+
+    @OneToMany
+    @JoinColumn(name = "expert_fk" , referencedColumnName = "id")
+    List<SubService> subServices = new ArrayList<>() ;
+
+    public List<SubService> getSubServices() {
+        return Collections.unmodifiableList(subServices);
+    }
+
+    public Expert setSubServices(SubService subService) {
+        subServices.add(subService)  ;
+        return this ;
+    }
 
     @OneToOne
     @JoinColumn(name = "credit_fk" , referencedColumnName = "id")
