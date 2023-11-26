@@ -1,7 +1,12 @@
 package com.example.finalprojectbootcamp.services;
 
-import org.springframework.stereotype.Service;
+import com.example.finalprojectbootcamp.core.entities.Service;
+import com.example.finalprojectbootcamp.core.entities.SubService;
 
-@Service
+
+@org.springframework.stereotype.Service
 public interface SubServiceService {
+    /*3*/ void addANewSubService (SubService subService , Service service ) ;
+
+
 }
