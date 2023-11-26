@@ -1,10 +1,11 @@
 package com.example.finalprojectbootcamp.core.entities;
 
 import com.example.finalprojectbootcamp.core.base.Auditing;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Entity
 public class Service extends Auditing {
@@ -30,5 +31,20 @@ public class Service extends Auditing {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+
+    @OneToMany
+    @JoinColumn(name = "service_fk" , referencedColumnName = "id")
+    List<SubService> subServices = new ArrayList<>() ;
+
+
+    public List<SubService> getSubServices() {
+        return Collections.unmodifiableList(subServices);
+    }
+
+    public Service setSubServices(SubService subService) {
+        subServices.add(subService) ;
+        return this ;
     }
 }

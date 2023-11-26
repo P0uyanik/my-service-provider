@@ -38,4 +38,17 @@ public class SubService extends Auditing {
     public void setDescription(String description) {
         this.description = description;
     }
+
+
+    @ManyToOne
+    @JoinColumn(name = "service_fk" , referencedColumnName = "id")
+    private Service service ;
+
+    public Service getService() {
+        return service;
+    }
+
+    public void setService(Service service) {
+        this.service = service;
+    }
 }
