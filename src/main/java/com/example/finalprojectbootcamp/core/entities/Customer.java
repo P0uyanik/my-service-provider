@@ -10,7 +10,7 @@ import java.util.List;
 
 @Entity
 public class Customer extends Person {
-    public Customer(String name, String lastname, String username, String email, String password, ExpertStatus expertStatus) {
+    public Customer(String name, String lastname, String username, String email, String password) {
         super(name, lastname, username, email, password);
     }
 
