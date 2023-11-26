@@ -1,10 +1,7 @@
 package com.example.finalprojectbootcamp.core.entities;
 
 import com.example.finalprojectbootcamp.core.base.Auditing;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class RateAndReview extends Auditing {
@@ -16,6 +13,10 @@ public class RateAndReview extends Auditing {
     }
     private int rating ;
     private String review ;
+
+    public RateAndReview(int rating) {
+        this.rating = rating;
+    }
 
     public RateAndReview(int rating, String review) {
         this.rating = rating;
@@ -39,5 +40,18 @@ public class RateAndReview extends Auditing {
 
     public void setReview(String review) {
         this.review = review;
+    }
+
+
+    @ManyToOne
+    @JoinColumn(name = "expert_fk" , referencedColumnName = "id")
+    private Expert expert ;
+
+    public Expert getExpert() {
+        return expert;
+    }
+
+    public void setExpert(Expert expert) {
+        this.expert = expert;
     }
 }

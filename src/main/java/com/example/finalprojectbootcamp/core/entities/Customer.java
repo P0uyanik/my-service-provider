@@ -43,4 +43,18 @@ public class Customer extends Person {
     }
 
 
+    @OneToMany
+    @JoinColumn(name = "costumer_fk" ,referencedColumnName = "id")
+    List<RateAndReview> rateAndReviews = new ArrayList<>() ;
+
+    public List<RateAndReview> getRateAndReviews() {
+        return Collections.unmodifiableList(rateAndReviews);
+    }
+
+    public Customer setRateAndReviews(RateAndReview rateAndReview) {
+        rateAndReviews.add(rateAndReview) ;
+        return this ;
+    }
+
+
 }
