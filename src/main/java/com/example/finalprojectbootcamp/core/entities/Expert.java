@@ -2,10 +2,7 @@ package com.example.finalprojectbootcamp.core.entities;
 
 import com.example.finalprojectbootcamp.core.base.Person;
 import com.example.finalprojectbootcamp.core.enums.ExpertStatus;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -42,5 +39,18 @@ public class Expert extends Person {
 
     public void setExpertStatus(ExpertStatus expertStatus) {
         this.expertStatus = expertStatus;
+    }
+
+
+    @OneToOne
+    @JoinColumn(name = "credit_fk" , referencedColumnName = "id")
+    private Credit credit ;
+
+    public Credit getCredit() {
+        return credit;
+    }
+
+    public void setCredit(Credit credit) {
+        this.credit = credit;
     }
 }

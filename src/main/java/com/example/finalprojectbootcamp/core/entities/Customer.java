@@ -29,4 +29,18 @@ public class Customer extends Person {
         return  this ;
     }
 
+
+    @OneToOne
+    @JoinColumn(name = "credit_fk" , referencedColumnName = "id")
+    private Credit credit ;
+
+    public Credit getCredit() {
+        return credit;
+    }
+
+    public void setCredit(Credit credit) {
+        this.credit = credit;
+    }
+
+
 }
