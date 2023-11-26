@@ -17,4 +17,10 @@ public class CustomerServiceImpl implements  CustomerService {
     public void addANewCustomer(Customer customer) {
         customerRepository.save(customer) ;
     }
+
+    @Override
+    public int updateCustomerByPassword(long id ,String password) {
+        return customerRepository.updateCustomerByPassword(id , password) ;
+    }
+
 }
