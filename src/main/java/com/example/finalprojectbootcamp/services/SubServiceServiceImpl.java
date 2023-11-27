@@ -28,4 +28,19 @@ public class SubServiceServiceImpl implements SubServiceService {
         subServiceRepository.save(subService);
     }
 
+    @Override
+    public int updateSubServiceByPriceAndDescription(long id, String price, String description) {
+        return subServiceRepository.updateSubServiceByPriceAndDescription(id , price , description) ;
+    }
+
+    @Override
+    public int updateSubServiceByPrice(long id, String price) {
+        return subServiceRepository.updateSubServiceByPrice(id , price);
+    }
+
+    @Override
+    public int updateSubServiceByDescription(long id, String description) {
+        return subServiceRepository.updateSubServiceByDescription(id , description);
+    }
+
 }
