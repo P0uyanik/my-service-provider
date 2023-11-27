@@ -10,12 +10,11 @@ import java.util.List;
 
 @Entity
 public class Expert extends Person {
-
     private ExpertStatus expertStatus = ExpertStatus.NEW;
+    private boolean accessToTheSystem = false ;
 
-    public Expert(String name, String lastname, String username, String email, String password, ExpertStatus expertStatus) {
+    public Expert(String name, String lastname, String username, String email, String password) {
         super(name, lastname, username, email, password);
-        this.expertStatus = expertStatus;
     }
 
     protected Expert() {
@@ -66,5 +65,14 @@ public class Expert extends Person {
 
     public void setCredit(Credit credit) {
         this.credit = credit;
+    }
+
+
+    public boolean isAccessToTheSystem() {
+        return accessToTheSystem;
+    }
+
+    public void setAccessToTheSystem(boolean accessToTheSystem) {
+        this.accessToTheSystem = accessToTheSystem;
     }
 }
