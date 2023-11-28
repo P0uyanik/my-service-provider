@@ -30,7 +30,7 @@ public class SubServiceServiceImpl implements SubServiceService {
 
     @Override
     public int updateSubServiceByPriceAndDescription(long id, String price, String description) {
-        return subServiceRepository.updateSubServiceByPriceAndDescription(id , price , description) ;
+        return subServiceRepository.updateSubServiceByPriceAndDescription(id, price, description);
     }
 
     @Override
