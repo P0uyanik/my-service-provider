@@ -12,9 +12,12 @@ import java.util.Optional;
 @org.springframework.stereotype.Service
 public interface ServiceService {
     /*3*/ void addANewService (Service service) ;
-    /*3-1*/ Service findServicesById(long id);
+    /*3-1*/ Service findServicesById (long id);
     /*5*/ List<Service> showAllServices (int pageSize) ;
-    /*5-1*/public List<Service> np() ;
-    /*5-2*/public List<Service> pp() ;
+    /*5-1*/ List<Service> np() ;
+    /*5-2*/ List<Service> pp() ;
+
+    /*7.1 - 1*/ List <Service> findAllServices () ;
+
 
 }

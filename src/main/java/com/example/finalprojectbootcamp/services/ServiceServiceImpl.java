@@ -36,6 +36,12 @@ public class ServiceServiceImpl implements ServiceService {
     public List<Service> pp() {
         return serviceRepository.findAll(currentPage.previousPageable()).getContent();
     }
+
+    @Override
+    public List<Service> findAllServices() {
+        return serviceRepository.findAll() ;
+    }
+
     @Override
     public List<Service> np() {
         return serviceRepository.findAll(currentPage.nextPageable()).getContent();
@@ -49,6 +55,7 @@ public class ServiceServiceImpl implements ServiceService {
             pageSize = (int) serviceRepository.count() ;
 
         this.currentPage = findServicesWithPageSize(pageSize);
+
         return currentPage.getContent();
     }
 }
