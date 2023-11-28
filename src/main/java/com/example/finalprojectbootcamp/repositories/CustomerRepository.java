@@ -13,4 +13,5 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
                     """
     )
     int updateCustomerByPassword(long id, String password);
+    Customer findCustomerById(long id) ;
 }
