@@ -96,4 +96,21 @@ public class Order extends Auditing {
         offers.add(offer) ;
         return this ;
     }
+
+
+
+
+    @ManyToOne
+    @JoinColumn(name = "subservice_fk" , referencedColumnName = "id")
+    private SubService subService ;
+
+    public SubService getSubService() {
+        return subService;
+    }
+
+    public void setSubService(SubService subService) {
+        this.subService = subService;
+    }
+
+
 }

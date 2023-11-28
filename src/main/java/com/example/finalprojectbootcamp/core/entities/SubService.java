@@ -3,6 +3,10 @@ package com.example.finalprojectbootcamp.core.entities;
 import com.example.finalprojectbootcamp.core.base.Auditing;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 @Entity
 public class SubService extends Auditing {
     @Id
@@ -64,5 +68,21 @@ public class SubService extends Auditing {
 
     public void setExpert(Expert expert) {
         this.expert = expert;
+    }
+
+
+
+
+    @OneToMany
+    @JoinColumn(name = "subservice_fk" , referencedColumnName = "id")
+    List<SubService> subServices = new ArrayList<>() ;
+
+    public List<SubService> getSubServices() {
+        return Collections.unmodifiableList(subServices);
+    }
+
+    public SubService setSubServices(SubService subServices) {
+        this.subServices.add(subServices) ;
+        return this ;
     }
 }
