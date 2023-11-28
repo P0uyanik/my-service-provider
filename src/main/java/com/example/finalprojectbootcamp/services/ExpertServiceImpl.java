@@ -11,9 +11,17 @@ import java.util.List;
 
 public class ExpertServiceImpl implements ExpertService {
     private final ExpertRepository expertRepository ;
+    private OrderService orderService ;
 
     public ExpertServiceImpl(ExpertRepository expertRepository) {
         this.expertRepository = expertRepository;
+    }
+
+
+    @Autowired
+    void setOrderService (OrderServiceImpl orderService)
+    {
+        this.orderService = orderService ;
     }
     @Override
     public void addANewExpert(Expert expert) {
