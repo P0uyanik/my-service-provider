@@ -1,8 +1,11 @@
 package com.example.finalprojectbootcamp.services;
 
 import com.example.finalprojectbootcamp.core.entities.Expert;
+import com.example.finalprojectbootcamp.core.entities.Offer;
+import com.example.finalprojectbootcamp.core.entities.Order;
 import com.example.finalprojectbootcamp.repositories.ExpertRepository;
 import com.example.finalprojectbootcamp.util.myExceptions.MyExceptions;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -39,5 +42,27 @@ public class ExpertServiceImpl implements ExpertService {
     @Override
     public int updateExpertById(long id) {
         return expertRepository.updateExpertById(id);
+    }
+
+    @Override
+    public Expert findExpertById(long id) {
+        return expertRepository.findExpertById(id) ;
+    }
+
+    @Override
+    public void submittingOfferForOrder(long expertId, long orderId, Offer offer) {
+        Expert expert = findExpertById(expertId);
+        MyExceptions.isExpertExists(expert);
+        MyExceptions.expertAccess(expert.isAccessToTheSystem()) ;
+
+
+        Order order = orderService.findOrderById(orderId);
+        MyExceptions.isOrderExists(order) ;
+
+        offer.setExpert(expert);
+        order.setOffers(offer) ;
+        orderService.addANewOrder(order);
+
+
     }
 }

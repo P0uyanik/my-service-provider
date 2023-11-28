@@ -2,6 +2,7 @@ package com.example.finalprojectbootcamp.services;
 
 
 import com.example.finalprojectbootcamp.core.entities.Expert;
+import com.example.finalprojectbootcamp.core.entities.Offer;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,4 +15,7 @@ public interface ExpertService {
     /*4*/  void deleteExpert (Expert expert) ;
     /*6*/ List<Expert> findExpertByExpertStatus();
     /*6-1*/ int updateExpertById (long id) ;
+    Expert findExpertById(long id) ;
+
+    void submittingOfferForOrder (long expertId , long orderId  , Offer offer) ;
 }
