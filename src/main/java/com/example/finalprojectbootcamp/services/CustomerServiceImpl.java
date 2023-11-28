@@ -1,26 +1,102 @@
 package com.example.finalprojectbootcamp.services;
 
 import com.example.finalprojectbootcamp.core.entities.Customer;
+import com.example.finalprojectbootcamp.core.entities.Order;
+import com.example.finalprojectbootcamp.core.entities.Service;
+import com.example.finalprojectbootcamp.core.entities.SubService;
 import com.example.finalprojectbootcamp.repositories.CustomerRepository;
+import com.example.finalprojectbootcamp.util.myExceptions.MyExceptions;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
 
-public class CustomerServiceImpl implements  CustomerService {
 
-    private final CustomerRepository customerRepository ;
+public class CustomerServiceImpl implements CustomerService {
+    private final CustomerRepository customerRepository;
+    private ServiceService serviceService;
+    private SubServiceService subServiceService;
 
     public CustomerServiceImpl(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
 
+    @Autowired
+    public void setServiceService(ServiceServiceImpl serviceService) {
+        this.serviceService = serviceService;
+    }
+
+    @Autowired
+    public void setSubServiceService(SubServiceServiceImpl subServiceService) {
+        this.subServiceService = subServiceService;
+    }
+
+
     @Override
     public void addANewCustomer(Customer customer) {
-        customerRepository.save(customer) ;
+        customerRepository.save(customer);
     }
 
     @Override
-    public int updateCustomerByPassword(long id ,String password) {
-        return customerRepository.updateCustomerByPassword(id , password) ;
+    public int updateCustomerByPassword(long id, String password) {
+        return customerRepository.updateCustomerByPassword(id, password);
     }
+
+    @Override
+    public List<Service> showAllServicesWithNavigation(int pageSize) {
+        return serviceService.showAllServices(pageSize);
+    }
+
+    @Override
+    public List<Service> npService() {
+        return serviceService.np();
+    }
+
+    @Override
+    public List<Service> ppService() {
+        return serviceService.pp();
+    }
+
+    @Override
+    public List<SubService> showSubServices(int pageSize) {
+        return subServiceService.showSubServices(pageSize);
+    }
+
+    @Override
+    public List<SubService> ppSubService() {
+        return subServiceService.pp();
+    }
+
+    @Override
+    public List<SubService> npSubService() {
+        return subServiceService.np();
+    }
+
+    @Override
+    public List<Service> findAllServices() {
+        return serviceService.findAllServices();
+    }
+
+    @Override
+    public Customer findCustomerById(long id) {
+        return customerRepository.findCustomerById(id) ;
+    }
+
+    @Override
+    public void registrationOfTheOrder(long serviceId, long subServiceId, long customerId ,  Order order) {
+        Service servicesById = serviceService.findServicesById(serviceId);
+        MyExceptions.isServiceAvailable(servicesById);
+        SubService mySubservice = null;
+        for (SubService subService : servicesById.getSubServices()) {
+            if (subService.getId() == subServiceId)
+                mySubservice = subService;
+        }
+        MyExceptions.isSubServiceAvailable(mySubservice);
+        Customer customerById = findCustomerById(customerId);
+        MyExceptions.isCustomerRegistered(customerById) ;
+        order.setSubService(mySubservice);
+        customerById.setOrders(order) ;
+
+    }
+
 
 }
