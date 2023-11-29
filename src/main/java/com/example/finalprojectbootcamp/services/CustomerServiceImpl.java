@@ -31,6 +31,16 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
 
+    @Autowired
+    public void setOrderService(OrderServiceImpl orderService) {
+        this.orderService = orderService;
+    }
+
+    @Autowired
+    public void setOfferService(OfferServiceImpl offerService) {
+        this.offerService = offerService;
+    }
+
     @Override
     public void addANewCustomer(Customer customer) {
         customerRepository.save(customer);
