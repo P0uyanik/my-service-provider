@@ -83,6 +83,13 @@ public class Order extends Auditing {
     }
 
 
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
+    }
 
     @OneToMany
     @JoinColumn(name = "order_fk" , referencedColumnName = "id")
@@ -93,6 +100,7 @@ public class Order extends Auditing {
     }
 
     public Order setOffers(Offer offer) {
+        this.orderStatus = OrderStatus.WAITING_FOR_EXPERT_SELECTION ;
         offers.add(offer) ;
         return this ;
     }
