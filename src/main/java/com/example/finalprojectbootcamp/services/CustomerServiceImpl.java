@@ -95,7 +95,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void registrationOfTheOrder(long serviceId, long subServiceId, long customerId ,  Order order) {
+    public void registrationOfTheOrder(long serviceId, long subServiceId, long customerId, Order order) {
         Service servicesById = serviceService.findServicesById(serviceId);
         MyExceptions.isServiceAvailable(servicesById);
         SubService mySubservice = null;
