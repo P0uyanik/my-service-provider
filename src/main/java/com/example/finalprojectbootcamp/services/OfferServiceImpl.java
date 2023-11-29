@@ -9,9 +9,15 @@ private  final OfferRepository offerRepository ;
     public OfferServiceImpl(OfferRepository offerRepository) {
         this.offerRepository = offerRepository;
     }
-
     @Override
     public Offer findOfferById(long id) {
         return offerRepository.findOfferById(id);
     }
+
+    @Override
+    public void addANewOffer(Offer offer) {
+        offerRepository.save(offer) ;
+    }
+
+
 }
