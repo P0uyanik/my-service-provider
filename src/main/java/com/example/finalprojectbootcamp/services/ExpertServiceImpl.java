@@ -56,7 +56,10 @@ public class ExpertServiceImpl implements ExpertService {
     public Expert findExpertById(long id) {
         return expertRepository.findExpertById(id) ;
     }
-
+    @Override
+    public List<Order> showAllOrdersForExpert() {
+        return orderService.showAllOrdersForExpert() ;
+    }
     @Override
     public void submittingOfferForOrder(long expertId, long orderId, Offer offer) {
         Expert expert = findExpertById(expertId);

@@ -15,6 +15,7 @@ public interface ExpertService {
     /*4*/  void deleteExpert (Expert expert) ;
     /*6*/ List<Expert> findExpertByExpertStatus();
     /*6-1*/ int updateExpertById (long id) ;
+    List<Order> showAllOrdersForExpert() ;
     Expert findExpertById(long id) ;
 
     void submittingOfferForOrder (long expertId , long orderId  , Offer offer) ;
