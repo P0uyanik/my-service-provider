@@ -111,5 +111,20 @@ public class CustomerServiceImpl implements CustomerService {
 
     }
 
+    @Override
+    public List<Offer> customerOffers(long customerId, long orderId) {
+        Customer customerById = findCustomerById(customerId);
+        MyExceptions.isCustomerRegistered(customerById);
+
+
+
+        Order orderById = orderService.findOrderById(orderId);
+        MyExceptions.isOrderExists(orderById);
+        ///////// Sort mit Comperator
+        return MyExceptions.checkOrderForCustomer(customerById, orderById);
+    }
+
+
+
 
 }
