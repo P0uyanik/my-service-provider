@@ -124,6 +124,32 @@ public class CustomerServiceImpl implements CustomerService {
         return MyExceptions.checkOrderForCustomer(customerById, orderById);
     }
 
+    @Override
+    public void selectingOffer(long customerId, long orderId, long offerId) {
+        List<Offer> offers = customerOffers(customerId, orderId);
+
+
+        Offer offer = offerService.findOfferById(offerId);
+        MyExceptions.isOfferExists(offer);
+
+        Order order = orderService.findOrderById(orderId);
+
+
+        MyExceptions.checkOffers(offers);
+
+        // be yek orderkhassi offer hayi taalogh gerefte
+        MyExceptions.checkOfferForOrder(offers, offer);
+
+        for (Offer offer1 : offers)
+            if (offer1.hashCode() == offer.hashCode()) {
+                offer1.setOfferStatus(OfferStatus.ACTIVE);
+                order.setOffers(offer1);
+                order.setOrderStatus(OrderStatus.WAITING_FOR_EXPERT_TO_ARRIVE_AT_YOUR_LOCATION);
+                orderService.addANewOrder(order);
+            }
+
+
+    }
 
 
 
