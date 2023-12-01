@@ -68,6 +68,26 @@ public class Expert extends Person {
     }
 
 
+    @OneToMany
+    @JoinColumn(name = "expert_fk" ,referencedColumnName = "id")
+    List<RateAndReview> rateAndReviews = new ArrayList<>() ;
+
+    public List<RateAndReview> getRateAndReviews() {
+        return Collections.unmodifiableList(rateAndReviews);
+    }
+
+    public Expert setRateAndReviews(RateAndReview rateAndReview) {
+        rateAndReviews.add(rateAndReview) ;
+        return this ;
+    }
+
+
+
+
+
+
+
+
     public boolean isAccessToTheSystem() {
         return accessToTheSystem;
     }
