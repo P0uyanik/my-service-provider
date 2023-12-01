@@ -24,4 +24,14 @@ public interface CustomerService {
    Customer findCustomerById(long id) ;
    /*7.1-2*/void registrationOfTheOrder (long serviceId , long subServiceId ,  long customerId , Order order ) ;
 
+   /*11*/ List <Offer> customerOffers (long customerId , long orderId ) ;
+   /*13*/ void selectingOffer  (long customerId , long orderId ,  long offerId) ;
+
+
+   /*13*/    void cancellingAnOffer (long customerId , long orderId ,  long offerId) ;
+
+   // /*11-1*/ List <Offer> customerOffers (long customerId , long orderId ) ;
+
+
+
 }
