@@ -13,6 +13,9 @@ public class Expert extends Person {
     private ExpertStatus expertStatus = ExpertStatus.NEW;
     private boolean accessToTheSystem = false ;
 
+
+    @Embedded
+    private AccountStatus accountStatus;
     public Expert(String name, String lastname, String username, String email, String password) {
         super(name, lastname, username, email, password);
     }
@@ -81,6 +84,15 @@ public class Expert extends Person {
         return this ;
     }
 
+
+
+    public AccountStatus getAccountStatus() {
+        return accountStatus;
+    }
+
+    public void setAccountStatus(AccountStatus accountStatus) {
+        this.accountStatus = accountStatus;
+    }
 
 
 
