@@ -152,5 +152,20 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
 
+    @Override
+    public void cancellingAnOffer(long customerId, long orderId, long offerId) {
+        List<Offer> offers = customerOffers(customerId, orderId);
+        Order order = orderService.findOrderById(orderId);
+        for (Offer offer : offers) {
+            if (offer.getOfferStatus().equals(OfferStatus.ACTIVE)) {
+                offer.setOfferStatus(OfferStatus.DEACTIVE);
+                order.setOrderStatus(OrderStatus.WAITING_FOR_EXPERT_BIDS);
+                order.setOffers(offer) ;
+                orderService.addANewOrder(order);
+            }
+        }
+    }
+
+
 
 }
