@@ -1,13 +1,18 @@
 package com.example.finalprojectbootcamp.services;
 
-import com.example.finalprojectbootcamp.core.entities.Customer;
-import com.example.finalprojectbootcamp.core.entities.Order;
-import com.example.finalprojectbootcamp.core.entities.Service;
-import com.example.finalprojectbootcamp.core.entities.SubService;
+import com.example.finalprojectbootcamp.core.entities.*;
+import com.example.finalprojectbootcamp.core.enums.OfferStatus;
+import com.example.finalprojectbootcamp.core.enums.OrderStatus;
+import com.example.finalprojectbootcamp.core.enums.Rater;
+import com.example.finalprojectbootcamp.core.helperClasses.AccountStatus;
 import com.example.finalprojectbootcamp.repositories.CustomerRepository;
 import com.example.finalprojectbootcamp.util.myExceptions.MyExceptions;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -17,10 +22,15 @@ public class CustomerServiceImpl implements CustomerService {
     private SubServiceService subServiceService;
     private OrderService orderService;
     private OfferService offerService;
+    private ExpertService expertService ;
 
 
     public CustomerServiceImpl(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
+    }
+    @Autowired
+    public void setExpertService(ExpertServiceImpl expertService) {
+        this.expertService = expertService;
     }
 
     @Autowired
