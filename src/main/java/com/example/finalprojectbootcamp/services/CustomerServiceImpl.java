@@ -146,55 +146,49 @@ public class CustomerServiceImpl implements CustomerService {
 
         MyExceptions.checkOffers(offers);
 
-        // be yek orderkhassi offer hayi taalogh gerefte
-        MyExceptions.checkOfferForOrder(offers, offer);
-
-        for (Offer offer1 : offers)
-            if (offer1.hashCode() == offer.hashCode()) {
-                offer1.setOfferStatus(OfferStatus.ACTIVE);
-                order.setOffers(offer1);
-                order.setOrderStatus(OrderStatus.WAITING_FOR_EXPERT_TO_ARRIVE_AT_YOUR_LOCATION);
-                orderService.addANewOrder(order);
-            }
+        Offer selectedOffer = MyExceptions.checkOfferForOrder(offers, offer);
+        selectedOffer.setOfferStatus(OfferStatus.ACTIVE);
+        order.setOffers(selectedOffer);
+        order.setOrderStatus(OrderStatus.WAITING_FOR_EXPERT_TO_ARRIVE_AT_YOUR_LOCATION);
+        orderService.addANewOrder(order);
 
 
     }
 
 
     @Override
-    public void cancellingAnOffer(String customerEmail , String customerPassword , long orderId, long offerId) {
-        List<Offer> offers = customerOffers(customerEmail, customerPassword , orderId);
+    public void cancellingAnOffer(String customerEmail, String customerPassword, long orderId, long offerId) {
+        List<Offer> offers = customerOffers(customerEmail, customerPassword, orderId);
         Order order = orderService.findOrderById(orderId);
-        for (Offer offer : offers) {
-            if (offer.getOfferStatus().equals(OfferStatus.ACTIVE)) {
-                offer.setOfferStatus(OfferStatus.DEACTIVE);
-                order.setOrderStatus(OrderStatus.WAITING_FOR_EXPERT_BIDS);
-                order.setOffers(offer) ;
-                orderService.addANewOrder(order);
-            }
-        }
+
+        Offer offer = findingSelectedOffer(offers);
+        offer.setOfferStatus(OfferStatus.DEACTIVE);
+        order.setOrderStatus(OrderStatus.WAITING_FOR_EXPERT_BIDS);
+        order.setOffers(offer);
+        orderService.addANewOrder(order);
+
     }
 
 
 
     @Override
-    public void changingTheOrderStatusToStarted(String customerEmail , String customerPassword , long orderId) {
-        List<Offer> offers = customerOffers(customerEmail , customerPassword , orderId);
-        MyExceptions.checkOffersToFindActiveOffer(offers) ;
+    public void changingTheOrderStatusToStarted(String customerEmail, String customerPassword, long orderId) {
+        List<Offer> offers = customerOffers(customerEmail, customerPassword, orderId);
+        MyExceptions.checkOffersToFindActiveOffer(offers);
         Order order = orderService.findOrderById(orderId);
         order.setOrderStatus(OrderStatus.STARTED);
         orderService.addANewOrder(order);
     }
 
     @Override
-    public void changingTheOrderStatusToCompleted(String customerEmail , String customerPassword , long orderId , RateAndReview rateAndReview ) {
-        List<Offer> offers = customerOffers(customerEmail , customerPassword , orderId);
-        MyExceptions.checkOffersToFindActiveOffer(offers) ;
+    public void changingTheOrderStatusToCompleted(String customerEmail, String customerPassword, long orderId, RateAndReview rateAndReview) {
+        List<Offer> offers = customerOffers(customerEmail, customerPassword, orderId);
+        MyExceptions.checkOffersToFindActiveOffer(offers);
         Order order = orderService.findOrderById(orderId);
         order.setCompletionDateOfTask(LocalDate.now());
         order.setOrderStatus(OrderStatus.COMPLETED);
         orderService.addANewOrder(order);
-        submitComment(customerEmail , customerPassword , orderId , rateAndReview) ;
+        submitComment(customerEmail, customerPassword, orderId, rateAndReview);
     }
 
 
@@ -204,16 +198,14 @@ public class CustomerServiceImpl implements CustomerService {
 
 
     @Override
-    public void submitComment(String customerEmail , String customerPassword , long orderId , RateAndReview rateAndReview ) {
-        List<Offer> offers = customerOffers(customerEmail , customerPassword , orderId);
-        for (Offer offer : offers) {
-            if (offer.getOfferStatus().equals(OfferStatus.ACTIVE)) {
-                Expert expert = offer.getExpert();
-                rateAndReview.setRater(Rater.CUSTOMER);
-                expert.setRateAndReviews(rateAndReview) ;
-                expertService.addANewExpert(expert);
-            }
-        }
+    public void submitComment(String customerEmail, String customerPassword, long orderId, RateAndReview rateAndReview) {
+        List<Offer> offers = customerOffers(customerEmail, customerPassword, orderId);
+        Offer offer = findingSelectedOffer(offers);
+        Expert expert = offer.getExpert();
+        rateAndReview.setRater(Rater.CUSTOMER);
+        expert.setRateAndReviews(rateAndReview);
+        expertService.addANewExpert(expert);
+
 
     }
 
