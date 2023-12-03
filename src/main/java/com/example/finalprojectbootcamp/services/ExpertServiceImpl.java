@@ -35,7 +35,7 @@ public class ExpertServiceImpl implements ExpertService {
 
     @Override
     public void deleteExpert(Expert expert) {
-        Expert expertByIdy= expertRepository.findExpertById(expert.getId());
+        Expert expertByIdy= expertRepository.findExpertByEmailAndPassword(expert.getEmail() , expert.getPassword());
         MyExceptions.isExpertExists(expertByIdy) ;
         expertRepository.delete(expertByIdy);
     }
@@ -53,16 +53,16 @@ public class ExpertServiceImpl implements ExpertService {
     }
 
     @Override
-    public Expert findExpertById(long id) {
-        return expertRepository.findExpertById(id) ;
+    public  Expert findExpertByEmailAndPassword (String expertEmail , String expertPassword)  {
+        return expertRepository.findExpertByEmailAndPassword(expertEmail , expertPassword) ;
     }
     @Override
     public List<Order> showAllOrdersForExpert() {
         return orderService.showAllOrdersForExpert() ;
     }
     @Override
-    public void submittingOfferForOrder(long expertId, long orderId, Offer offer) {
-        Expert expert = findExpertById(expertId);
+    public void submittingOfferForOrder(String expertEmail , String expertPassword, long orderId, Offer offer) {
+        Expert expert = findExpertByEmailAndPassword(expertEmail ,expertPassword );
         MyExceptions.isExpertExists(expert);
         MyExceptions.expertAccess(expert.isAccessToTheSystem()) ;
 

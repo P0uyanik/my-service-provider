@@ -3,6 +3,7 @@ package com.example.finalprojectbootcamp.services;
 
 import com.example.finalprojectbootcamp.core.entities.Expert;
 import com.example.finalprojectbootcamp.core.entities.Offer;
+import com.example.finalprojectbootcamp.core.entities.Order;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public interface ExpertService {
     /*6*/ List<Expert> findExpertByExpertStatus();
     /*6-1*/ int updateExpertById (long id) ;
     List<Order> showAllOrdersForExpert() ;
-    Expert findExpertById(long id) ;
+    Expert findExpertByEmailAndPassword (String email , String password) ; ;
 
-    void submittingOfferForOrder (long expertId , long orderId  , Offer offer) ;
+    /*8*/ void submittingOfferForOrder(String expertEmail , String expertPassword, long orderId, Offer offer) ;
 }

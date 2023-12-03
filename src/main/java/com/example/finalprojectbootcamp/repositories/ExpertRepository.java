@@ -16,7 +16,7 @@ public interface ExpertRepository extends JpaRepository<Expert, Long> {
     )
     int updateExpertByPassword(long id, String password);
 
-    Expert findExpertById(long id);
+    Expert findExpertByEmailAndPassword (String email , String password) ;
 
     @Query
             (
