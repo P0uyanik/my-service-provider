@@ -105,16 +105,12 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void registrationOfTheOrder( String customerEmail , String customerPassword , long serviceId, long subServiceId , Order order) {
+    public void registrationOfTheOrder(String customerEmail, String customerPassword, long serviceId, long subServiceId, Order order) {
         Service servicesById = serviceService.findServicesById(serviceId);
         MyExceptions.isServiceAvailable(servicesById);
-        SubService mySubservice = null;
-        for (SubService subService : servicesById.getSubServices()) {
-            if (subService.getId() == subServiceId)
-                mySubservice = subService;
-        }
+        SubService mySubservice = servicesById.getSubServices().stream().filter(subService -> subService.getId() == subServiceId).findFirst().orElse(null) ;
         MyExceptions.isSubServiceAvailable(mySubservice);
-        Customer customerById = findCustomerByEmailAndPassword(customerEmail , customerPassword);
+        Customer customerById = findCustomerByEmailAndPassword(customerEmail, customerPassword);
         MyExceptions.isCustomerRegistered(customerById);
         order.setSubService(mySubservice);
         customerById.setOrders(order);
