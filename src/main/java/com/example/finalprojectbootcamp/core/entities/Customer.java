@@ -2,6 +2,7 @@ package com.example.finalprojectbootcamp.core.entities;
 
 import com.example.finalprojectbootcamp.core.base.Person;
 import com.example.finalprojectbootcamp.core.enums.ExpertStatus;
+import com.example.finalprojectbootcamp.core.helperClasses.AccountStatus;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -54,6 +55,16 @@ public class Customer extends Person {
     public Customer setRateAndReviews(RateAndReview rateAndReview) {
         rateAndReviews.add(rateAndReview) ;
         return this ;
+    }
+
+    @Embedded
+    private AccountStatus accountStatus;
+    public AccountStatus getAccountStatus() {
+        return accountStatus;
+    }
+
+    public void setAccountStatus(AccountStatus accountStatus) {
+        this.accountStatus = accountStatus;
     }
 
 
