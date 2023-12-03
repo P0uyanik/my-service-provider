@@ -25,6 +25,7 @@ public class Order extends Auditing {
     private String jobDescription;
     private LocalDate executionTime;
     private String address;
+    private  LocalDate completionDateOfTask ;
     OrderStatus orderStatus = OrderStatus.WAITING_FOR_EXPERT_BIDS ;
 
     public Order(String suggestedPrice, String jobDescription, LocalDate executionTime, String address) {
@@ -69,6 +70,13 @@ public class Order extends Auditing {
         this.address = address;
     }
 
+    public LocalDate getCompletionDateOfTask() {
+        return completionDateOfTask;
+    }
+
+    public void setCompletionDateOfTask(LocalDate completionDateOfTask) {
+        this.completionDateOfTask = completionDateOfTask;
+    }
 
     @ManyToOne
     @JoinColumn(name = "customer_fk" , referencedColumnName = "id")
