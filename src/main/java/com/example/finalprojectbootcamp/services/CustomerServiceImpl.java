@@ -90,12 +90,12 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer findCustomerById(long id) {
-        return customerRepository.findCustomerById(id);
+    public Customer findCustomerByEmailAndPassword(String email  , String password  ) {
+        return customerRepository.findCustomerByEmailAndPassword(email , password) ;
     }
 
     @Override
-    public void registrationOfTheOrder(long serviceId, long subServiceId, long customerId, Order order) {
+    public void registrationOfTheOrder( String customerEmail , String customerPassword , long serviceId, long subServiceId , Order order) {
         Service servicesById = serviceService.findServicesById(serviceId);
         MyExceptions.isServiceAvailable(servicesById);
         SubService mySubservice = null;
@@ -104,16 +104,19 @@ public class CustomerServiceImpl implements CustomerService {
                 mySubservice = subService;
         }
         MyExceptions.isSubServiceAvailable(mySubservice);
-        Customer customerById = findCustomerById(customerId);
-        MyExceptions.isCustomerRegistered(customerById) ;
+        Customer customerById = findCustomerByEmailAndPassword(customerEmail , customerPassword);
+        MyExceptions.isCustomerRegistered(customerById);
         order.setSubService(mySubservice);
-        customerById.setOrders(order) ;
+        customerById.setOrders(order);
+
+
+        customerRepository.save(customerById);
 
     }
 
     @Override
-    public List<Offer> customerOffers(long customerId, long orderId) {
-        Customer customerById = findCustomerById(customerId);
+    public List<Offer> customerOffers(String customerEmail , String customerPassword , long orderId) {
+        Customer customerById = findCustomerByEmailAndPassword(customerEmail , customerPassword);
         MyExceptions.isCustomerRegistered(customerById);
 
 
@@ -125,8 +128,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void selectingOffer(long customerId, long orderId, long offerId) {
-        List<Offer> offers = customerOffers(customerId, orderId);
+    public void selectingOffer(String customerEmail , String customerPassword , long orderId, long offerId) {
+        List<Offer> offers = customerOffers(customerEmail,customerPassword ,  orderId);
 
 
         Offer offer = offerService.findOfferById(offerId);
@@ -153,8 +156,8 @@ public class CustomerServiceImpl implements CustomerService {
 
 
     @Override
-    public void cancellingAnOffer(long customerId, long orderId, long offerId) {
-        List<Offer> offers = customerOffers(customerId, orderId);
+    public void cancellingAnOffer(String customerEmail , String customerPassword , long orderId, long offerId) {
+        List<Offer> offers = customerOffers(customerEmail, customerPassword , orderId);
         Order order = orderService.findOrderById(orderId);
         for (Offer offer : offers) {
             if (offer.getOfferStatus().equals(OfferStatus.ACTIVE)) {
