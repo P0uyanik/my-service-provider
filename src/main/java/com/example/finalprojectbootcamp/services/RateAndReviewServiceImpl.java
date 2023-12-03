@@ -45,7 +45,7 @@ public class RateAndReviewServiceImpl implements RateAndReviewService {
         Expert expertById = expertService.findExpertById(expert.getId());
         MyExceptions.isExpertExists(expertById);
 
-        Customer customerById = customerService.findCustomerById(customer.getId());
+        Customer customerById = customerService.findCustomerByEmailAndPassword(customer.getEmail() , customer.getPassword());
         MyExceptions.isCustomerRegistered(customerById);
 
 
@@ -62,5 +62,27 @@ public class RateAndReviewServiceImpl implements RateAndReviewService {
         rateAndReview.setExpert(expertById);
         rateAndReviewRepository.save(rateAndReview);
 
+    }
+
+    ////////// in munddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+    @Override
+    public void executionTimeOfTaskAndScheduledTime(String customerEmail , String customerPassword, long orderId) {
+        List<Offer> offers = customerService.customerOffers(customerEmail , customerPassword , orderId);
+        Order order = orderService.findOrderById(orderId);
+        for (Offer offer : offers) {
+            if (offer.getOfferStatus() == OfferStatus.ACTIVE) {
+                Expert expert = offer.getExpert();
+                RateAndReview rateAndReview = new RateAndReview(-1, Rater.SYSTEM);
+
+                LocalDate completionDateOfTask = order.getCompletionDateOfTask();
+                LocalDate executionTime = order.getExecutionTime();
+                // ekhtelaf bayad inja zekr shavad
+                rateAndReviewRepository.updateRateAndReviewByMyProcedure(1010);
+                Expert expert1 = expert.setRateAndReviews(rateAndReview);
+                expertService.addANewExpert(expert);
+                // ekhtelafe in ha har cheghard ke hast
+            }
+
+        }
     }
 }

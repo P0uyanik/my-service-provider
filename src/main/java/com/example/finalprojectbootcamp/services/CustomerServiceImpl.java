@@ -168,4 +168,71 @@ public class CustomerServiceImpl implements CustomerService {
 
 
 
+    @Override
+    public void changingTheOrderStatusToStarted(String customerEmail , String customerPassword , long orderId) {
+        List<Offer> offers = customerOffers(customerEmail , customerPassword , orderId);
+        MyExceptions.checkOffersToFindActiveOffer(offers) ;
+        Order order = orderService.findOrderById(orderId);
+        order.setOrderStatus(OrderStatus.STARTED);
+        orderService.addANewOrder(order);
+    }
+
+    @Override
+    public void changingTheOrderStatusToCompleted(String customerEmail , String customerPassword , long orderId , RateAndReview rateAndReview ) {
+        List<Offer> offers = customerOffers(customerEmail , customerPassword , orderId);
+        MyExceptions.checkOffersToFindActiveOffer(offers) ;
+        Order order = orderService.findOrderById(orderId);
+        order.setCompletionDateOfTask(LocalDate.now());
+        order.setOrderStatus(OrderStatus.COMPLETED);
+        orderService.addANewOrder(order);
+        submitComment(customerEmail , customerPassword , orderId , rateAndReview) ;
+    }
+
+    @Override
+    public void submitComment(String customerEmail , String customerPassword , long orderId , RateAndReview rateAndReview ) {
+        List<Offer> offers = customerOffers(customerEmail , customerPassword , orderId);
+        for (Offer offer : offers) {
+            if (offer.getOfferStatus().equals(OfferStatus.ACTIVE)) {
+                Expert expert = offer.getExpert();
+                rateAndReview.setRater(Rater.CUSTOMER);
+                expert.setRateAndReviews(rateAndReview) ;
+                expertService.addANewExpert(expert);
+            }
+        }
+
+    }
+
+    @Override
+    public List<Customer> searchingAndFilteringTheCustomers(Customer customer) {
+        QCustomer myCustomer = QCustomer.customer;
+        String email = customer.getEmail();
+        String name = customer.getName();
+        String lastname = customer.getLastname();
+        String username = customer.getUsername();
+        AccountStatus accountStatus = customer.getAccountStatus();
+
+        BooleanBuilder booleanBuilder = new BooleanBuilder() ;
+
+        BooleanExpression isEmailSelected ;
+        BooleanExpression isNameSelected ;
+        BooleanExpression isLastnameSelected ;
+        BooleanExpression isUsernameSelected ;
+        BooleanExpression isAccessToAccount ;
+
+        if (!StringUtils.isNullOrEmpty(email))
+            isEmailSelected=   myCustomer.email.isNotNull();
+        if (!StringUtils.isNullOrEmpty(name))
+            isNameSelected=   myCustomer.name.isNull() ;
+        if (!StringUtils.isNullOrEmpty(lastname))
+            isLastnameSelected=   myCustomer.lastname.isNull() ;
+        if (!StringUtils.isNullOrEmpty(username))
+            isUsernameSelected=   myCustomer.username.isNull() ;
+        if (accountStatus.isAccessToAccount())
+            isAccessToAccount=   myCustomer.accountStatus.isNotNull().isTrue(); ;
+
+        customerRepository.findAll() ;
+        return null;
+    }
+
+
 }

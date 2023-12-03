@@ -1,15 +1,21 @@
 package com.example.finalprojectbootcamp.services;
 
-import com.example.finalprojectbootcamp.core.entities.Customer;
-import com.example.finalprojectbootcamp.core.entities.Order;
-import com.example.finalprojectbootcamp.core.entities.Service;
-import com.example.finalprojectbootcamp.core.entities.SubService;
+import com.example.finalprojectbootcamp.core.entities.*;
+import com.example.finalprojectbootcamp.core.enums.OrderStatus;
 
 
 import java.util.List;
 
 @org.springframework.stereotype.Service
 public interface CustomerService {
+
+
+
+
+
+
+
+
    /*1*/ void addANewCustomer (Customer customer) ;
    /*2*/ int updateCustomerByPassword( long id , String password) ;
 
@@ -21,17 +27,23 @@ public interface CustomerService {
    /*7-2*/ List<SubService> ppSubService() ;
    /*7-3*/ List<SubService> npSubService() ;
    /*7.1-1*/ List<Service> findAllServices() ;
-   Customer findCustomerById(long id) ;
-   /*7.1-2*/void registrationOfTheOrder (long serviceId , long subServiceId ,  long customerId , Order order ) ;
+   Customer findCustomerByEmailAndPassword(String email ,String  password) ;
+   /*7.1-2*/void registrationOfTheOrder (String customerEmail , String customerPassword , long serviceId , long subServiceId  , Order order ) ;
 
-   /*11*/ List <Offer> customerOffers (long customerId , long orderId ) ;
-   /*13*/ void selectingOffer  (long customerId , long orderId ,  long offerId) ;
+   /*11*/    public List<Offer> customerOffers(String customerEmail , String customerPassword , long orderId) ;
+   /*13*/ void selectingOffer(String customerEmail , String customerPassword , long orderId, long offerId) ;
 
 
-   /*13*/    void cancellingAnOffer (long customerId , long orderId ,  long offerId) ;
+   /*13*/    void cancellingAnOffer(String customerEmail , String customerPassword , long orderId, long offerId) ;
 
    // /*11-1*/ List <Offer> customerOffers (long customerId , long orderId ) ;
+   /*14*/    void changingTheOrderStatusToStarted(String customerEmail , String customerPassword , long orderId);
 
 
+   void changingTheOrderStatusToCompleted(String customerEmail , String customerPassword , long orderId , RateAndReview rateAndReview ) ;
 
+   /*16*/  void submitComment(String customerEmail , String customerPassword , long orderId , RateAndReview rateAndReview )   ;
+
+  List <Customer> searchingAndFilteringTheCustomers (Customer customer) ;
 }
+
