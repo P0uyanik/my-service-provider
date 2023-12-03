@@ -197,6 +197,12 @@ public class CustomerServiceImpl implements CustomerService {
         submitComment(customerEmail , customerPassword , orderId , rateAndReview) ;
     }
 
+
+    private Offer findingSelectedOffer(List<Offer> offers) {
+        return offers.stream().filter(offer -> offer.getOfferStatus().equals(OfferStatus.ACTIVE)).findFirst().orElse(null);
+    }
+
+
     @Override
     public void submitComment(String customerEmail , String customerPassword , long orderId , RateAndReview rateAndReview ) {
         List<Offer> offers = customerOffers(customerEmail , customerPassword , orderId);
