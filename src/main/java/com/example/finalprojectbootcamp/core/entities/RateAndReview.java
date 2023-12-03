@@ -1,6 +1,7 @@
 package com.example.finalprojectbootcamp.core.entities;
 
 import com.example.finalprojectbootcamp.core.base.Auditing;
+import com.example.finalprojectbootcamp.core.enums.Rater;
 import jakarta.persistence.*;
 
 @Entity
@@ -8,19 +9,23 @@ public class RateAndReview extends Auditing {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     public Long getId() {
         return id;
     }
-    private int rating ;
-    private String review ;
+    private int rating;
+    private String review;
+    Rater rater;
 
-    public RateAndReview(int rating) {
+    public RateAndReview(int rating , Rater rater) {
         this.rating = rating;
+        this.rater = rater ;
     }
 
-    public RateAndReview(int rating, String review) {
+    public RateAndReview(int rating, String review , Rater rater) {
         this.rating = rating;
         this.review = review;
+        this.rater = rater ;
     }
 
     protected RateAndReview() {
@@ -42,6 +47,13 @@ public class RateAndReview extends Auditing {
         this.review = review;
     }
 
+    public Rater getRater() {
+        return rater;
+    }
+
+    public void setRater(Rater rater) {
+        this.rater = rater;
+    }
 
     @ManyToOne
     @JoinColumn(name = "expert_fk" , referencedColumnName = "id")
