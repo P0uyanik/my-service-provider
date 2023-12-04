@@ -1,9 +1,15 @@
 package com.example.finalprojectbootcamp.services;
 
 import com.example.finalprojectbootcamp.core.entities.*;
+import com.example.finalprojectbootcamp.core.enums.OfferStatus;
+import com.example.finalprojectbootcamp.core.enums.Rater;
 import com.example.finalprojectbootcamp.repositories.RateAndReviewRepository;
 import com.example.finalprojectbootcamp.util.myExceptions.MyExceptions;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.List;
 
 public class RateAndReviewServiceImpl implements RateAndReviewService {
     private final RateAndReviewRepository rateAndReviewRepository;
@@ -41,11 +47,12 @@ public class RateAndReviewServiceImpl implements RateAndReviewService {
 
 
     @Override
-    public void ratingAndReviewForExpert(RateAndReview rateAndReview, Customer customer, Expert expert, Order order, Offer offer) {
-        Expert expertById = expertService.findExpertById(expert.getId());
+    public void ratingAndReviewForExpert(RateAndReview rateAndReview, Customer customer, Order order, Offer offer) {
+
+        Expert expertById = offer.getExpert();
         MyExceptions.isExpertExists(expertById);
 
-        Customer customerById = customerService.findCustomerByEmailAndPassword(customer.getEmail() , customer.getPassword());
+        Customer customerById = customerService.findCustomerByEmailAndPassword(customer.getEmail(), customer.getPassword());
         MyExceptions.isCustomerRegistered(customerById);
 
 
