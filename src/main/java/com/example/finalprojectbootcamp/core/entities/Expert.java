@@ -2,6 +2,7 @@ package com.example.finalprojectbootcamp.core.entities;
 
 import com.example.finalprojectbootcamp.core.base.Person;
 import com.example.finalprojectbootcamp.core.enums.ExpertStatus;
+import com.example.finalprojectbootcamp.core.helperClasses.AccountStatus;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
