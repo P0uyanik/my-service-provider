@@ -16,10 +16,12 @@ public class SubService extends Auditing {
     public Long getId() {
         return id;
     }
+    private String title ;
     private String price ;
     private String description ;
 
-    public SubService(String price, String description) {
+    public SubService(String title, String price, String description) {
+        this.title = title;
         this.price = price;
         this.description = description;
     }
@@ -43,6 +45,14 @@ public class SubService extends Auditing {
         this.description = description;
     }
 
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     @ManyToOne
     @JoinColumn(name = "service_fk" , referencedColumnName = "id")

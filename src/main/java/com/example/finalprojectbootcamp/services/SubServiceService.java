@@ -16,8 +16,10 @@ public interface SubServiceService {
     /*5-1*/ int updateSubServiceByPrice(long id, String price);
 
     /*5-1*/ int updateSubServiceByDescription(long id, String description);
-    /*7-1*/  List<SubService> showSubServices (int pageSize) ;
-    /*7-2*/ List<SubService> pp() ;
-    /*7-3*/ List<SubService> np() ;
-    List<SubService>findAll() ;
+    /*7-1*/  List<SubService> showSubServices (int pageSize) ; // admin
+    /*7-2*/ List<SubService> pp() ; // admin
+    /*7-3*/ List<SubService> np() ; // admin
+    /*7-4*/    List<SubService>findAll() ; // admin
+
+    SubService findSubServiceByTitle(String title);
 }

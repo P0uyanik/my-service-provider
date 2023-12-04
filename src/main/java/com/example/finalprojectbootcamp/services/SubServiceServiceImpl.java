@@ -69,4 +69,9 @@ public class SubServiceServiceImpl implements SubServiceService {
         return subServiceRepository.findAll() ;
     }
 
+    @Override
+    public SubService findSubServiceByTitle(String title) {
+        return subServiceRepository.findSubServiceByTitle(title);
+    }
+
 }
