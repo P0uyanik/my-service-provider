@@ -1,11 +1,29 @@
 package com.example.finalprojectbootcamp.services;
 
-import com.example.finalprojectbootcamp.core.entities.Admin;
-import com.example.finalprojectbootcamp.repositories.AdminRepository;
-import org.springframework.stereotype.Service;
+import com.example.finalprojectbootcamp.core.entities.*;
 
-@Service
+import java.util.List;
+
+@org.springframework.stereotype.Service
 public interface AdminService {
     Admin findAdminByEmailAndAndPassword(String email , String password) ;
+    /*3*/ void addANewSubService (SubService subService , Service service ) ;
+    /*3*/ void addANewService ( Service service) ;
+    /*1*/ void addANewExpert (Expert expert) ;
+    /*4*/  void deleteExpert (Expert expert) ;
 
+
+    /*5*/ List<Service> showAllServices (int pageSize) ;
+    /*5-1*/ List<Service> np() ;
+    /*5-2*/ List<Service> pp() ;
+
+    /*7-1*/  List<SubService> showAllSubServices (int pageSize) ;
+    /*7-2*/ List<SubService> ppSubServices() ;
+    /*7-3*/ List<SubService> npSubServices() ;
+    List<SubService>findAllSubServices() ;
+    /*5-1*/ int updateSubServiceByDescription(long id, String description);
+    /*6*/ List<Expert> findExpertByExpertStatus();
+    /*6-1*/ int updateExpertStatusByEmail(String email)  ;
+    List <Expert> searchingAndFilteringTheExperts (Expert expert) ;
+    List <Customer> searchingAndFilteringTheCustomers (Customer customer) ;
 }
