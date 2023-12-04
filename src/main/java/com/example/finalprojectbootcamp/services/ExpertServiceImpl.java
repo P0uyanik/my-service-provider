@@ -48,8 +48,8 @@ public class ExpertServiceImpl implements ExpertService {
     }
 
     @Override
-    public int updateExpertById(long id) {
-        return expertRepository.updateExpertById(id);
+    public int updateExpertStatusByEmail(String email) {
+        return expertRepository.updateExpertStatusByEmail(email);
     }
 
     @Override

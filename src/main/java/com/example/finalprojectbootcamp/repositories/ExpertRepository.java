@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface ExpertRepository extends JpaRepository<Expert, Long> {
+public interface ExpertRepository extends JpaRepository<Expert, Long> , QuerydslPredicateExecutor<Expert> {
     @Modifying
     @Query(
             """
@@ -29,10 +29,12 @@ public interface ExpertRepository extends JpaRepository<Expert, Long> {
     @Modifying
     @Query(
             """
-                    update Expert e set e.accessToTheSystem = true  , e.expertStatus = ?#{(T(com.example.finalprojectbootcamp.core.enums.ExpertStatus).APPROVED)} where e.id=:id
+                    update Expert e set e.accessToTheSystem = true  , e.expertStatus = ?#{(T(com.example.finalprojectbootcamp.core.enums.ExpertStatus).APPROVED)} where e.email=:email
                     """
     )
-    int updateExpertById(long id);
+    int updateExpertStatusByEmail(String email);
+
+    Expert findExpertByEmail(String email) ;
 
 
 }
