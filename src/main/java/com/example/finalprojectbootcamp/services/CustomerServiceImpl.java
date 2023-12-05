@@ -22,12 +22,14 @@ public class CustomerServiceImpl implements CustomerService {
     private SubServiceService subServiceService;
     private OrderService orderService;
     private OfferService offerService;
-    private ExpertService expertService ;
-
+    private ExpertService expertService;
+    private CreditService creditService;
+    private RateAndReviewService rateAndReviewService;
 
     public CustomerServiceImpl(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
+
     @Autowired
     public void setExpertService(ExpertServiceImpl expertService) {
         this.expertService = expertService;
@@ -39,10 +41,18 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Autowired
+    public void setCreditService(CreditServiceImpl creditService) {
+        this.creditService = creditService;
+    }
+
+    @Autowired
     public void setSubServiceService(SubServiceServiceImpl subServiceService) {
         this.subServiceService = subServiceService;
     }
-
+    @Autowired
+    public void setRateAndReviewService(RateAndReviewServiceImpl rateAndReviewService) {
+        this.rateAndReviewService = rateAndReviewService;
+    }
 
     @Autowired
     public void setOrderService(OrderServiceImpl orderService) {
@@ -113,6 +123,7 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customerById = findCustomerByEmailAndPassword(customerEmail, customerPassword);
         MyExceptions.isCustomerRegistered(customerById);
         order.setSubService(mySubservice);
+        order.setOrderStatus(OrderStatus.WAITING_FOR_EXPERT_BIDS);
         customerById.setOrders(order);
 
 
@@ -124,7 +135,6 @@ public class CustomerServiceImpl implements CustomerService {
     public List<Offer> customerOffers(String customerEmail , String customerPassword , long orderId) {
         Customer customerById = findCustomerByEmailAndPassword(customerEmail , customerPassword);
         MyExceptions.isCustomerRegistered(customerById);
-
 
 
         Order orderById = orderService.findOrderById(orderId);
@@ -170,12 +180,21 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
 
-
     @Override
     public void changingTheOrderStatusToStarted(String customerEmail, String customerPassword, long orderId) {
         List<Offer> offers = customerOffers(customerEmail, customerPassword, orderId);
         MyExceptions.checkOffersToFindActiveOffer(offers);
         Order order = orderService.findOrderById(orderId);
+
+        Offer offer = findingSelectedOffer(offers);
+        LocalDate startTime = offer.getStartTime();
+
+        int checkStartTime = LocalDate.now().compareTo(startTime);
+
+
+        MyExceptions.checkStartTimeException(checkStartTime) ;
+
+
         order.setOrderStatus(OrderStatus.STARTED);
         orderService.addANewOrder(order);
     }
@@ -206,7 +225,6 @@ public class CustomerServiceImpl implements CustomerService {
         expert.setRateAndReviews(rateAndReview);
         expertService.addANewExpert(expert);
 
-
     }
 
     @Override
@@ -218,27 +236,47 @@ public class CustomerServiceImpl implements CustomerService {
         String username = customer.getUsername();
         AccountStatus accountStatus = customer.getAccountStatus();
 
-        BooleanBuilder booleanBuilder = new BooleanBuilder() ;
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
 
-        BooleanExpression isEmailSelected ;
-        BooleanExpression isNameSelected ;
-        BooleanExpression isLastnameSelected ;
-        BooleanExpression isUsernameSelected ;
-        BooleanExpression isAccessToAccount ;
+        BooleanExpression isEmailSelected;
+        BooleanExpression isNameSelected;
+        BooleanExpression isLastnameSelected;
+        BooleanExpression isUsernameSelected;
+        BooleanExpression isAccessToAccount;
 
         if (!StringUtils.isNullOrEmpty(email))
-            isEmailSelected=   myCustomer.email.isNotNull();
+            isEmailSelected = myCustomer.email.isNotNull();
         if (!StringUtils.isNullOrEmpty(name))
-            isNameSelected=   myCustomer.name.isNull() ;
+            isNameSelected = myCustomer.name.isNull();
         if (!StringUtils.isNullOrEmpty(lastname))
-            isLastnameSelected=   myCustomer.lastname.isNull() ;
+            isLastnameSelected = myCustomer.lastname.isNull();
         if (!StringUtils.isNullOrEmpty(username))
-            isUsernameSelected=   myCustomer.username.isNull() ;
+            isUsernameSelected = myCustomer.username.isNull();
         if (accountStatus.isAccessToAccount())
-            isAccessToAccount=   myCustomer.accountStatus.isNotNull().isTrue(); ;
+            isAccessToAccount = myCustomer.accountStatus.isNotNull().isTrue();
 
-        customerRepository.findAll() ;
+
+        customerRepository.findAll();
         return null;
+    }
+
+    @Override
+    public void payingAmountWithCredit(String customerEmail, String customerPassword, long orderId) {
+        creditService.payingAmountWithCredit(customerEmail, customerPassword, orderId);
+    }
+
+    @Override
+    public void ratingAndReviewForExpert(RateAndReview rateAndReview , String customerEmail , String customerPassword , Order order, Offer offer) {
+        Customer customerByEmailAndPassword = customerRepository.findCustomerByEmailAndPassword(customerEmail, customerPassword);
+        MyExceptions.isCustomerRegistered(customerByEmailAndPassword);
+        rateAndReviewService.ratingAndReviewForExpert(rateAndReview ,  customerByEmailAndPassword , order , offer);
+    }
+
+    @Override
+    public void executionTimeOfTaskAndScheduledTime(String customerEmail, String customerPassword, long orderId) {
+        Customer customerByEmailAndPassword = customerRepository.findCustomerByEmailAndPassword(customerEmail, customerPassword);
+        MyExceptions.isCustomerRegistered(customerByEmailAndPassword);
+        rateAndReviewService.executionTimeOfTaskAndScheduledTime(customerEmail , customerPassword , orderId);
     }
 
 
