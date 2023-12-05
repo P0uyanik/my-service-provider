@@ -218,6 +218,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void submitComment(String customerEmail, String customerPassword, long orderId, RateAndReview rateAndReview) {
+        Order order= orderService.findOrderById(orderId);
+        MyExceptions.isOrderExists(order);
+        MyExceptions.orderIfHasBeenCompleted(order) ;
         List<Offer> offers = customerOffers(customerEmail, customerPassword, orderId);
         Offer offer = findingSelectedOffer(offers);
         Expert expert = offer.getExpert();
