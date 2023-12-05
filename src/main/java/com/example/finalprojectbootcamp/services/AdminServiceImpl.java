@@ -67,6 +67,11 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
+    public void selectingSubServiceForExpert(String email, SubService subServices) {
+        expertService.selectingSubServiceForExpert(email , subServices);
+    }
+
+    @Override
     public List<Service> showAllServices(int pageSize) {
         return service.showAllServices(pageSize);
     }

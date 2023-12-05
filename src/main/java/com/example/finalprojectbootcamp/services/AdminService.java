@@ -13,6 +13,10 @@ public interface AdminService {
     /*4*/  void deleteExpert (Expert expert) ;
 
 
+
+
+    void selectingSubServiceForExpert (String email , SubService subServices) ;// admin
+
     /*5*/ List<Service> showAllServices (int pageSize) ;
     /*5-1*/ List<Service> np() ;
     /*5-2*/ List<Service> pp() ;
