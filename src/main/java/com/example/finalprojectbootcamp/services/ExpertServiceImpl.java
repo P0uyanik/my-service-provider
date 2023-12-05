@@ -66,6 +66,9 @@ public class ExpertServiceImpl implements ExpertService {
         MyExceptions.isExpertExists(expert);
         MyExceptions.expertAccess(expert.isAccessToTheSystem()) ;
 
+        double avgRating = rateAndReviewService.checkExpertRating(expert.getId());
+        MyExceptions.negativeRating(avgRating);
+
 
         Order order = orderService.findOrderById(orderId);
         MyExceptions.isOrderExists(order) ;
@@ -76,4 +79,10 @@ public class ExpertServiceImpl implements ExpertService {
 
 
     }
+
+    @Override
+    public double checkExpertRating(long expertId) {
+        return rateAndReviewService.checkExpertRating(expertId);
+    }
+
 }
