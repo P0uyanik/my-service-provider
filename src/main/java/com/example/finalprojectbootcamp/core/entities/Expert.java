@@ -46,7 +46,7 @@ public class Expert extends Person {
     }
 
 
-    @OneToMany
+    @OneToMany (cascade = {CascadeType.MERGE , CascadeType.PERSIST } )
     @JoinColumn(name = "expert_fk" , referencedColumnName = "id")
     List<SubService> subServices = new ArrayList<>() ;
 
