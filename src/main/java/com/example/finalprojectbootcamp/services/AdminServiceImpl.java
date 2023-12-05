@@ -59,10 +59,7 @@ public class AdminServiceImpl implements AdminService {
         this.service.addANewService(service);
     }
 
-    @Override
-    public void addANewExpert(Expert expert) {
-        expertService.addANewExpert(expert);
-    }
+
 
     @Override
     public void deleteExpert(Expert expert) {
