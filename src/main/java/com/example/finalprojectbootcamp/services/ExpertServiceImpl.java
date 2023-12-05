@@ -3,6 +3,7 @@ package com.example.finalprojectbootcamp.services;
 import com.example.finalprojectbootcamp.core.entities.Expert;
 import com.example.finalprojectbootcamp.core.entities.Offer;
 import com.example.finalprojectbootcamp.core.entities.Order;
+import com.example.finalprojectbootcamp.core.entities.SubService;
 import com.example.finalprojectbootcamp.repositories.ExpertRepository;
 import com.example.finalprojectbootcamp.util.myExceptions.MyExceptions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 public class ExpertServiceImpl implements ExpertService {
-    private final ExpertRepository expertRepository ;
-    private OrderService orderService ;
+    private final ExpertRepository expertRepository;
+    private OrderService orderService;
+    private RateAndReviewService rateAndReviewService;
+    private SubServiceService subServiceService;
 
     public ExpertServiceImpl(ExpertRepository expertRepository) {
         this.expertRepository = expertRepository;
@@ -19,10 +22,20 @@ public class ExpertServiceImpl implements ExpertService {
 
 
     @Autowired
-    void setOrderService (OrderServiceImpl orderService)
-    {
-        this.orderService = orderService ;
+    void setOrderService(OrderServiceImpl orderService) {
+        this.orderService = orderService;
     }
+
+    @Autowired
+    void setRateAndReviewService(RateAndReviewServiceImpl rateAndReviewService) {
+        this.rateAndReviewService = rateAndReviewService;
+    }
+
+    @Autowired
+    void setSubService(SubServiceServiceImpl subService) {
+        this.subServiceService = subService;
+    }
+
     @Override
     public void addANewExpert(Expert expert) {
         expertRepository.save(expert) ;
