@@ -9,7 +9,7 @@ public interface AdminService {
     Admin findAdminByEmailAndAndPassword(String email , String password) ;
     /*3*/ void addANewSubService (SubService subService , Service service ) ;
     /*3*/ void addANewService ( Service service) ;
-    /*1*/ void addANewExpert (Expert expert) ;
+
     /*4*/  void deleteExpert (Expert expert) ;
 
 
