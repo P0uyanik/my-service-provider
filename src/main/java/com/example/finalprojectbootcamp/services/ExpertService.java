@@ -11,13 +11,15 @@ import java.util.Optional;
 
 @Service
 public interface ExpertService {
-    /*1*/ void addANewExpert (Expert expert) ;
-    /*2*/ int updateExpertByPassword(long id , String password);
-    /*4*/  void deleteExpert (Expert expert) ;
-    /*6*/ List<Expert> findExpertByExpertStatus();
-    /*6-1*/ int updateExpertById (long id) ;
-    List<Order> showAllOrdersForExpert() ;
-    Expert findExpertByEmailAndPassword (String email , String password) ; ;
+    /*1*/ void addANewExpert (Expert expert) ; // expert
+    /*2*/ int updateExpertByPassword(long id , String password); // expert
+    /*4*/  void deleteExpert (Expert expert) ; //admin
+    /*6*/ List<Expert> findExpertByExpertStatus(); // admin
+    /*6-1*/ int updateExpertStatusByEmail(String email) ; // admin
+    /*10*/ List<Order> showAllOrdersForExpert() ; //expert
+    Expert findExpertByEmailAndPassword (String email , String password) ; //expert
+
+    /*8*/ void submittingOfferForOrder(String expertEmail , String expertPassword, long orderId, Offer offer) ; //expert
 
     /*17*/ double checkExpertRating (long expertId) ; // expert
     /*18*/  List <Expert> searchingAndFilteringTheExperts (Expert expert) ; // admin
