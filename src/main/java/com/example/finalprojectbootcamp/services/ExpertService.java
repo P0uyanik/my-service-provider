@@ -19,5 +19,8 @@ public interface ExpertService {
     List<Order> showAllOrdersForExpert() ;
     Expert findExpertByEmailAndPassword (String email , String password) ; ;
 
-    /*8*/ void submittingOfferForOrder(String expertEmail , String expertPassword, long orderId, Offer offer) ;
+    /*17*/ double checkExpertRating (long expertId) ; // expert
+    /*18*/  List <Expert> searchingAndFilteringTheExperts (Expert expert) ; // admin
+    void selectingSubServiceForExpert (String email , SubService subServices) ;// admin
+
 }

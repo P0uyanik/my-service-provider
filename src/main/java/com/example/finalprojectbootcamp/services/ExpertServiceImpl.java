@@ -85,4 +85,15 @@ public class ExpertServiceImpl implements ExpertService {
         return rateAndReviewService.checkExpertRating(expertId);
     }
 
+    @Override
+    public void selectingSubServiceForExpert(String email, SubService subServices) {
+        Expert expert = expertRepository.findExpertByEmail(email);
+        MyExceptions.expertAccess(expert.isAccessToTheSystem());
+        SubService subServiceByTitle = subServiceService.findSubServiceByTitle(subServices.getTitle());
+        MyExceptions.isSubServiceAvailable(subServiceByTitle);
+        expert.setSubServices(subServices);
+        expertRepository.save(expert) ;
+    }
+
+
 }
