@@ -3,6 +3,7 @@ package com.example.finalprojectbootcamp.services;
 
 import com.example.finalprojectbootcamp.core.entities.*;
 import com.example.finalprojectbootcamp.repositories.AdminRepository;
+import com.example.finalprojectbootcamp.util.myExceptions.MyExceptions;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -46,7 +47,9 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public Admin findAdminByEmailAndAndPassword(String email, String password) {
-        return adminRepository.findAdminByEmailAndAndPassword(email, password);
+        Admin admin = adminRepository.findAdminByEmailAndAndPassword(email, password);
+        MyExceptions.isAdminExists(admin) ;
+        return admin ;
     }
 
     @Override
