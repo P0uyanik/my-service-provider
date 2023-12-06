@@ -25,7 +25,9 @@ public class ServiceServiceImpl implements ServiceService {
 
     @Override
     public Service findServicesById(long id) {
-        return serviceRepository.findServicesById(id);
+        Service servicesById = serviceRepository.findServicesById(id);
+        MyExceptions.isServiceAvailable(servicesById);
+        return servicesById ;
     }
 
 
