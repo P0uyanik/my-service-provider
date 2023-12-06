@@ -273,14 +273,12 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void ratingAndReviewForExpert(RateAndReview rateAndReview , String customerEmail , String customerPassword , Order order, Offer offer) {
         Customer customerByEmailAndPassword = customerRepository.findCustomerByEmailAndPassword(customerEmail, customerPassword);
-        MyExceptions.isCustomerRegistered(customerByEmailAndPassword);
         rateAndReviewService.ratingAndReviewForExpert(rateAndReview ,  customerByEmailAndPassword , order , offer);
     }
 
     @Override
     public void executionTimeOfTaskAndScheduledTime(String customerEmail, String customerPassword, long orderId) {
         Customer customerByEmailAndPassword = customerRepository.findCustomerByEmailAndPassword(customerEmail, customerPassword);
-        MyExceptions.isCustomerRegistered(customerByEmailAndPassword);
         rateAndReviewService.executionTimeOfTaskAndScheduledTime(customerEmail , customerPassword , orderId);
     }
 
