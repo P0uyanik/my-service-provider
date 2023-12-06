@@ -71,7 +71,9 @@ public class SubServiceServiceImpl implements SubServiceService {
 
     @Override
     public SubService findSubServiceByTitle(String title) {
-        return subServiceRepository.findSubServiceByTitle(title);
+        SubService subServiceByTitle = subServiceRepository.findSubServiceByTitle(title);
+        MyExceptions.isSubServiceAvailable(subServiceByTitle);
+        return subServiceByTitle ;
     }
 
 }
