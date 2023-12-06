@@ -84,7 +84,7 @@ public class ExpertServiceImpl implements ExpertService {
 
 
         Order order = orderService.findOrderById(orderId);
-        MyExceptions.isOrderExists(order) ;
+
 
         offer.setExpert(expert);
         order.setOffers(offer) ;

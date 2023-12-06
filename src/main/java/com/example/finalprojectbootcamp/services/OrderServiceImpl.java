@@ -2,6 +2,7 @@ package com.example.finalprojectbootcamp.services;
 
 import com.example.finalprojectbootcamp.core.entities.Order;
 import com.example.finalprojectbootcamp.repositories.OrderRepository;
+import com.example.finalprojectbootcamp.util.myExceptions.MyExceptions;
 
 import java.util.List;
 
@@ -19,7 +20,9 @@ public class OrderServiceImpl implements  OrderService {
 
     @Override
     public Order findOrderById(long id) {
-        return orderRepository.findOrderById(id);
+        Order orderById = orderRepository.findOrderById(id);
+        MyExceptions.isOrderExists(orderById);
+        return orderById ;
     }
 
     @Override

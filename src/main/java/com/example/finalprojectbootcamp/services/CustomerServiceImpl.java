@@ -142,7 +142,6 @@ public class CustomerServiceImpl implements CustomerService {
 
 
         Order orderById = orderService.findOrderById(orderId);
-        MyExceptions.isOrderExists(orderById);
         ///////// Sort mit Comperator
         return MyExceptions.checkOrderForCustomer(customerById, orderById);
     }
@@ -223,7 +222,6 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void submitComment(String customerEmail, String customerPassword, long orderId, RateAndReview rateAndReview) {
         Order order= orderService.findOrderById(orderId);
-        MyExceptions.isOrderExists(order);
         MyExceptions.orderIfHasBeenCompleted(order) ;
         List<Offer> offers = customerOffers(customerEmail, customerPassword, orderId);
         Offer offer = findingSelectedOffer(offers);
