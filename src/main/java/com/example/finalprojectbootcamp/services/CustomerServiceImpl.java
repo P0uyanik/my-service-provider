@@ -111,7 +111,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer findCustomerByEmailAndPassword(String email  , String password  ) {
-        return customerRepository.findCustomerByEmailAndPassword(email , password) ;
+        Customer customer = customerRepository.findCustomerByEmailAndPassword(email, password);
+        MyExceptions.isCustomerRegistered(customer);
+        return customer ;
     }
 
     @Override
@@ -120,8 +122,10 @@ public class CustomerServiceImpl implements CustomerService {
         MyExceptions.isServiceAvailable(servicesById);
         SubService mySubservice = servicesById.getSubServices().stream().filter(subService -> subService.getId() == subServiceId).findFirst().orElse(null) ;
         MyExceptions.isSubServiceAvailable(mySubservice);
+
         Customer customerById = findCustomerByEmailAndPassword(customerEmail, customerPassword);
-        MyExceptions.isCustomerRegistered(customerById);
+
+
         order.setSubService(mySubservice);
         order.setOrderStatus(OrderStatus.WAITING_FOR_EXPERT_BIDS);
         customerById.setOrders(order);
@@ -134,7 +138,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public List<Offer> customerOffers(String customerEmail , String customerPassword , long orderId) {
         Customer customerById = findCustomerByEmailAndPassword(customerEmail , customerPassword);
-        MyExceptions.isCustomerRegistered(customerById);
+
 
 
         Order orderById = orderService.findOrderById(orderId);
