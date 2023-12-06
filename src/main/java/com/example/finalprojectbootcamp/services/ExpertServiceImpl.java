@@ -1,9 +1,7 @@
 package com.example.finalprojectbootcamp.services;
 
-import com.example.finalprojectbootcamp.core.entities.Expert;
-import com.example.finalprojectbootcamp.core.entities.Offer;
-import com.example.finalprojectbootcamp.core.entities.Order;
-import com.example.finalprojectbootcamp.core.entities.SubService;
+import com.example.finalprojectbootcamp.core.entities.*;
+import com.example.finalprojectbootcamp.core.helperClasses.AccountStatus;
 import com.example.finalprojectbootcamp.repositories.ExpertRepository;
 import com.example.finalprojectbootcamp.util.myExceptions.MyExceptions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +47,6 @@ public class ExpertServiceImpl implements ExpertService {
     @Override
     public void deleteExpert(Expert expert) {
         Expert expertByIdy= expertRepository.findExpertByEmailAndPassword(expert.getEmail() , expert.getPassword());
-        MyExceptions.isExpertExists(expertByIdy) ;
         expertRepository.delete(expertByIdy);
     }
 
@@ -67,7 +64,9 @@ public class ExpertServiceImpl implements ExpertService {
 
     @Override
     public  Expert findExpertByEmailAndPassword (String expertEmail , String expertPassword)  {
-        return expertRepository.findExpertByEmailAndPassword(expertEmail , expertPassword) ;
+        Expert expert = expertRepository.findExpertByEmailAndPassword(expertEmail, expertPassword);
+        MyExceptions.isExpertExists(expert);
+        return expert ;
     }
     @Override
     public List<Order> showAllOrdersForExpert() {
@@ -76,7 +75,6 @@ public class ExpertServiceImpl implements ExpertService {
     @Override
     public void submittingOfferForOrder(String expertEmail , String expertPassword, long orderId, Offer offer) {
         Expert expert = findExpertByEmailAndPassword(expertEmail ,expertPassword );
-        MyExceptions.isExpertExists(expert);
         MyExceptions.expertAccess(expert.isAccessToTheSystem()) ;
 
         double avgRating = rateAndReviewService.checkExpertRating(expert.getId());
