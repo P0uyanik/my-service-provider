@@ -2,6 +2,7 @@ package com.example.finalprojectbootcamp.services;
 
 import com.example.finalprojectbootcamp.core.entities.Offer;
 import com.example.finalprojectbootcamp.repositories.OfferRepository;
+import com.example.finalprojectbootcamp.util.myExceptions.MyExceptions;
 
 public class OfferServiceImpl implements OfferService {
 private  final OfferRepository offerRepository ;
@@ -11,7 +12,9 @@ private  final OfferRepository offerRepository ;
     }
     @Override
     public Offer findOfferById(long id) {
-        return offerRepository.findOfferById(id);
+        Offer offerById = offerRepository.findOfferById(id);
+        MyExceptions.isOfferExists(offerById);
+        return offerById ;
     }
 
     @Override

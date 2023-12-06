@@ -149,16 +149,9 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void selectingOffer(String customerEmail , String customerPassword , long orderId, long offerId) {
         List<Offer> offers = customerOffers(customerEmail,customerPassword ,  orderId);
-
-
         Offer offer = offerService.findOfferById(offerId);
-        MyExceptions.isOfferExists(offer);
-
         Order order = orderService.findOrderById(orderId);
-
-
         MyExceptions.checkOffers(offers);
-
         Offer selectedOffer = MyExceptions.checkOfferForOrder(offers, offer);
         selectedOffer.setOfferStatus(OfferStatus.ACTIVE);
         order.setOffers(selectedOffer);
