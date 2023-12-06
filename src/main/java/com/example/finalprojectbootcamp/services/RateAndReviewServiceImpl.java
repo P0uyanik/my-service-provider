@@ -6,11 +6,12 @@ import com.example.finalprojectbootcamp.core.enums.Rater;
 import com.example.finalprojectbootcamp.repositories.RateAndReviewRepository;
 import com.example.finalprojectbootcamp.util.myExceptions.MyExceptions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
-
+@Service
 public class RateAndReviewServiceImpl implements RateAndReviewService {
     private final RateAndReviewRepository rateAndReviewRepository;
     private CustomerService customerService;

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+
 public interface OrderService {
     void addANewOrder (Order order) ;
     Order findOrderById(long id) ;

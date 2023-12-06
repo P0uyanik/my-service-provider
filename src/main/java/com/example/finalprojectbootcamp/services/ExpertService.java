@@ -7,9 +7,9 @@ import com.example.finalprojectbootcamp.core.entities.Order;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
-@Service
+
+
 public interface ExpertService {
     /*1*/ void addANewExpert (Expert expert) ; // expert
     /*2*/ int updateExpertByPassword(long id , String password); // expert

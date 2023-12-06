@@ -5,7 +5,7 @@ import com.example.finalprojectbootcamp.core.entities.*;
 
 import java.util.List;
 
-@org.springframework.stereotype.Service
+
 public interface CustomerService {
 
    /*1*/ void addANewCustomer (Customer customer) ; // Customer

@@ -7,7 +7,7 @@ import com.example.finalprojectbootcamp.util.myExceptions.MyExceptions;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
-
+@Service
 public class ExpertServiceImpl implements ExpertService {
     private final ExpertRepository expertRepository;
     private OrderService orderService;

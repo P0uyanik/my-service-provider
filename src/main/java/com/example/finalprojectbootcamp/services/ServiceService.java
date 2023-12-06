@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 
-@org.springframework.stereotype.Service
+
 public interface ServiceService {
     /*3*/ void addANewService (Service service) ;
     /*3-1*/ Service findServicesById (long id);

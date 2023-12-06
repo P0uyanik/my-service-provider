@@ -10,7 +10,7 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
-
+@org.springframework.stereotype.Service
 public class SubServiceServiceImpl implements SubServiceService {
     private final SubServiceRepository subServiceRepository;
     private ServiceService serviceService;

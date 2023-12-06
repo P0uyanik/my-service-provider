@@ -4,7 +4,7 @@ import com.example.finalprojectbootcamp.core.entities.*;
 
 import java.util.List;
 
-@org.springframework.stereotype.Service
+
 public interface AdminService {
     Admin findAdminByEmailAndAndPassword(String email , String password) ;
     /*3*/ void addANewSubService (SubService subService , Service service ) ;

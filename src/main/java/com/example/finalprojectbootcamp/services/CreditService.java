@@ -1,7 +1,10 @@
 package com.example.finalprojectbootcamp.services;
 
-import org.springframework.stereotype.Service;
+import com.example.finalprojectbootcamp.core.entities.Customer;
+import com.example.finalprojectbootcamp.core.entities.Offer;
+import java.util.List;
 
-@Service
+
 public interface CreditService {
+    void payingAmountWithCredit (List<Offer> offers , Customer myCustomer ) ;
 }

@@ -3,9 +3,10 @@ package com.example.finalprojectbootcamp.services;
 import com.example.finalprojectbootcamp.core.entities.Order;
 import com.example.finalprojectbootcamp.repositories.OrderRepository;
 import com.example.finalprojectbootcamp.util.myExceptions.MyExceptions;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class OrderServiceImpl implements  OrderService {
     private final OrderRepository orderRepository ;
 

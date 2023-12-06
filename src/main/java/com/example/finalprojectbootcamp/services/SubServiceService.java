@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 
-@org.springframework.stereotype.Service
+
 public interface SubServiceService {
     /*3*/ void addANewSubService (SubService subService , Service service ) ; // admin
     /*5-1*/int updateSubServiceByPriceAndDescription(long id, String price, String description); // admin
