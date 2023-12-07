@@ -4,9 +4,9 @@ import com.example.finalprojectbootcamp.core.base.Auditing;
 import com.example.finalprojectbootcamp.core.enums.OrderStatus;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -21,14 +21,14 @@ public class Order extends Auditing {
         return id;
     }
 
-    private String suggestedPrice;
+    private BigDecimal suggestedPrice;
     private String jobDescription;
     private LocalDate executionTime;
     private String address;
     private  LocalDate completionDateOfTask ;
     OrderStatus orderStatus = OrderStatus.WAITING_FOR_EXPERT_BIDS ;
 
-    public Order(String suggestedPrice, String jobDescription, LocalDate executionTime, String address) {
+    public Order(BigDecimal suggestedPrice, String jobDescription, LocalDate executionTime, String address) {
         this.suggestedPrice = suggestedPrice;
         this.jobDescription = jobDescription;
         this.executionTime = executionTime;
@@ -38,11 +38,11 @@ public class Order extends Auditing {
     protected Order() {
     }
 
-    public String getSuggestedPrice() {
+    public BigDecimal getSuggestedPrice() {
         return suggestedPrice;
     }
 
-    public void setSuggestedPrice(String suggestedPrice) {
+    public void setSuggestedPrice(BigDecimal suggestedPrice) {
         this.suggestedPrice = suggestedPrice;
     }
 
@@ -100,6 +100,7 @@ public class Order extends Auditing {
     }
 
     @OneToMany
+    @OrderBy(value = "suggestedPrice asc ")
     @JoinColumn(name = "order_fk" , referencedColumnName = "id")
     List<Offer> offers = new ArrayList<>() ;
 

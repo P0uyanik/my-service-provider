@@ -3,6 +3,7 @@ package com.example.finalprojectbootcamp.core.entities;
 import com.example.finalprojectbootcamp.core.base.Auditing;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -17,10 +18,10 @@ public class SubService extends Auditing {
         return id;
     }
     private String title ;
-    private String price ;
+    private BigDecimal price ;
     private String description ;
 
-    public SubService(String title, String price, String description) {
+    public SubService(String title, BigDecimal price, String description) {
         this.title = title;
         this.price = price;
         this.description = description;
@@ -29,11 +30,11 @@ public class SubService extends Auditing {
     protected SubService() {
     }
 
-    public String getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

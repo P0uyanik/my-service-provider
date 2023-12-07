@@ -4,6 +4,7 @@ import com.example.finalprojectbootcamp.core.base.Auditing;
 import com.example.finalprojectbootcamp.core.enums.OfferStatus;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -18,18 +19,18 @@ public class Offer extends Auditing {
         return id;
     }
 
-    private String suggestedPrice;
+    private BigDecimal suggestedPrice;
     private LocalDate startTime;
     private int durationOfTheJobInDays;
 
     protected Offer() {
     }
 
-    public String getSuggestedPrice() {
+    public BigDecimal getSuggestedPrice() {
         return suggestedPrice;
     }
 
-    public void setSuggestedPrice(String suggestedPrice) {
+    public void setSuggestedPrice(BigDecimal suggestedPrice) {
         this.suggestedPrice = suggestedPrice;
     }
 
