@@ -7,7 +7,7 @@ import org.mapstruct.factory.Mappers;
 import java.util.List;
 
 @Mapper
-interface AdminMapper {
+public interface AdminMapper {
     AdminMapper INSTANCE = Mappers.getMapper(AdminMapper.class) ;
     AdminDto toAdminDto (Admin admin) ;
     Admin toAdmin (AdminDto adminDto) ;
