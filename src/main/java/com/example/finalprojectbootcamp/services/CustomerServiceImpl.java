@@ -113,16 +113,11 @@ public class CustomerServiceImpl implements CustomerService {
         Service servicesById = serviceService.findServicesByName(serviceName);
         SubService mySubservice = servicesById.getSubServices().stream().filter(subService -> subService.getTitle().equals(subServiceName)).findFirst().orElse(null) ;
         MyExceptions.isSubServiceAvailable(mySubservice);
-
-        Customer customerById = findCustomerByEmailAndPassword(customerEmail, customerPassword);
-
-
+        Customer customerByEmail = findCustomerByEmailAndPassword(customerEmail, customerPassword);
         order.setSubService(mySubservice);
         order.setOrderStatus(OrderStatus.WAITING_FOR_EXPERT_BIDS);
-        customerById.setOrders(order);
-
-
-        customerRepository.save(customerById);
+        customerByEmail.setOrders(order);
+        customerRepository.save(customerByEmail);
 
     }
 
