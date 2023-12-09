@@ -65,8 +65,8 @@ public class AdminServiceImpl implements AdminService {
 
 
     @Override
-    public void deleteExpert(Expert expert) {
-        expertService.deleteExpert(expert);
+    public void deleteExpert(long id) {
+        expertService.deleteExpert(id);
     }
 
     @Override

@@ -10,7 +10,7 @@ public interface AdminService {
     /*3*/ void addANewSubService (SubService subService , Service service ) ;
     /*3*/ void addANewService ( Service service) ;
 
-    /*4*/  void deleteExpert (Expert expert) ;
+    /*4*/   void deleteExpert(long id)  ;
 
 
 
