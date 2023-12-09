@@ -1,5 +1,5 @@
 package com.example.finalprojectbootcamp.core.entities;
-
+import com.example.finalprojectbootcamp.core.MyEnumsConverter.OrderStatusToStringConverter;
 import com.example.finalprojectbootcamp.core.base.Auditing;
 import com.example.finalprojectbootcamp.core.enums.OrderStatus;
 import jakarta.persistence.*;
@@ -26,6 +26,7 @@ public class Order extends Auditing {
     private LocalDate executionTime;
     private String address;
     private  LocalDate completionDateOfTask ;
+    @Convert (converter = OrderStatusToStringConverter.class)
     OrderStatus orderStatus = OrderStatus.WAITING_FOR_EXPERT_BIDS ;
 
     public Order(BigDecimal suggestedPrice, String jobDescription, LocalDate executionTime, String address) {

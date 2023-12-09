@@ -1,5 +1,5 @@
 package com.example.finalprojectbootcamp.core.entities;
-
+import com.example.finalprojectbootcamp.core.MyEnumsConverter.OfferStatusToStringConverter;
 import com.example.finalprojectbootcamp.core.base.Auditing;
 import com.example.finalprojectbootcamp.core.enums.OfferStatus;
 import jakarta.persistence.*;
@@ -13,6 +13,8 @@ public class Offer extends Auditing {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Convert (converter = OfferStatusToStringConverter.class)
     OfferStatus offerStatus = OfferStatus.DEACTIVE;
 
     public Long getId() {

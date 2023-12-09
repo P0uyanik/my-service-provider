@@ -11,6 +11,8 @@ import java.util.List;
 
 @Entity
 public class Expert extends Person {
+
+    @Convert (converter = ExpertStatusToStringConverter.class)
     private ExpertStatus expertStatus = ExpertStatus.NEW;
     private boolean accessToTheSystem = false ;
 

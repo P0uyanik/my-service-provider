@@ -1,5 +1,5 @@
 package com.example.finalprojectbootcamp.core.entities;
-
+import com.example.finalprojectbootcamp.core.MyEnumsConverter.RaterToStringConverter;
 import com.example.finalprojectbootcamp.core.base.Auditing;
 import com.example.finalprojectbootcamp.core.enums.Rater;
 import jakarta.persistence.*;
@@ -15,6 +15,7 @@ public class RateAndReview extends Auditing {
     }
     private int rating;
     private String review;
+    @Convert (converter = RaterToStringConverter.class)
     Rater rater;
 
     public RateAndReview(int rating , Rater rater) {
