@@ -1,7 +1,7 @@
 package com.example.finalprojectbootcamp.services;
 
 import com.example.finalprojectbootcamp.core.entities.*;
-import com.example.finalprojectbootcamp.core.helperClasses.AccountStatus;
+
 import com.example.finalprojectbootcamp.repositories.ExpertRepository;
 import com.example.finalprojectbootcamp.util.myExceptions.MyExceptions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,8 +46,9 @@ public class ExpertServiceImpl implements ExpertService {
 
     @Override
     public void deleteExpert(Expert expert) {
-        Expert expertByIdy= expertRepository.findExpertByEmailAndPassword(expert.getEmail() , expert.getPassword());
-        expertRepository.delete(expertByIdy);
+        Expert expertByEmail= expertRepository.findExpertByEmailAndPassword(expert.getEmail() , expert.getPassword());
+        MyExceptions.isExpertExists(expertByEmail);
+        expertRepository.delete(expertByEmail);
     }
 
     @Override
