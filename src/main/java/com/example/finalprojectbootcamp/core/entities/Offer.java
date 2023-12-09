@@ -60,7 +60,7 @@ public class Offer extends Auditing {
         this.offerStatus = offerStatus;
     }
 
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.MERGE)
     @JoinColumn(name = "expert_fk", referencedColumnName = "id")
     private Expert expert;
 
