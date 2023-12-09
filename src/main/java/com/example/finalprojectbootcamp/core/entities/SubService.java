@@ -55,7 +55,7 @@ public class SubService extends Auditing {
         this.title = title;
     }
 
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.MERGE)
     @JoinColumn(name = "service_fk" , referencedColumnName = "id")
     private Service service ;
 
@@ -69,7 +69,7 @@ public class SubService extends Auditing {
 
 
 
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.ALL)
     @JoinColumn(name = "expert_fk" , referencedColumnName = "id")
     private Expert expert ;
 
