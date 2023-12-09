@@ -12,7 +12,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query(
             """
-                    select Order from Order o where
+                    select o from Order o where
                      o.orderStatus =?#{T(com.example.finalprojectbootcamp.core.enums.OrderStatus).WAITING_FOR_EXPERT_BIDS}
                      OR  o.orderStatus =?#{T(com.example.finalprojectbootcamp.core.enums.OrderStatus).WAITING_FOR_EXPERT_SELECTION}
                     """

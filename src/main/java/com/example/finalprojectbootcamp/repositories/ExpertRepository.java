@@ -1,11 +1,16 @@
 package com.example.finalprojectbootcamp.repositories;
 
 import com.example.finalprojectbootcamp.core.entities.Expert;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+
+
 import java.util.List;
+@Transactional
+public interface ExpertRepository extends JpaRepository<Expert, Long> {
 
 public interface ExpertRepository extends JpaRepository<Expert, Long> , QuerydslPredicateExecutor<Expert> {
     @Modifying
@@ -28,7 +33,7 @@ public interface ExpertRepository extends JpaRepository<Expert, Long> , Querydsl
     @Query
             (
                     """
-                            select Expert from  Expert  e where  e.expertStatus = ?#{(T(com.example.finalprojectbootcamp.core.enums.ExpertStatus).NEW)} AND e.accessToTheSystem =false
+                            select e from  Expert  e where  e.expertStatus = ?#{(T(com.example.finalprojectbootcamp.core.enums.ExpertStatus).NEW)} AND e.accessToTheSystem =false
                             """
             )
     List<Expert> findExpertByExpertStatus();
