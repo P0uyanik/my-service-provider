@@ -15,7 +15,7 @@ public interface ExpertRepository extends JpaRepository<Expert, Long> {
     @Modifying
     @Query(
             """
-                    update Expert e set e.password =:password where e.id=:id
+                    update Expert e set e.password =:password where e.email=:email
                     """
     )
     int updateExpertByPassword(String email, String password);
