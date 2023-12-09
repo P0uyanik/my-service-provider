@@ -12,7 +12,6 @@ import java.util.List;
 @Transactional
 public interface ExpertRepository extends JpaRepository<Expert, Long> {
 
-public interface ExpertRepository extends JpaRepository<Expert, Long> , QuerydslPredicateExecutor<Expert> {
     @Modifying
     @Query(
             """
