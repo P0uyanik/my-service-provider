@@ -4,7 +4,9 @@ import com.example.finalprojectbootcamp.core.entities.*;
 
 import com.example.finalprojectbootcamp.repositories.ExpertRepository;
 import com.example.finalprojectbootcamp.util.myExceptions.MyExceptions;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
@@ -74,6 +76,7 @@ public class ExpertServiceImpl implements ExpertService {
         return orderService.showAllOrdersForExpert() ;
     }
     @Override
+    @Transactional
     public void submittingOfferForOrder(String expertEmail , String expertPassword, long orderId, Offer offer) {
         Expert expert = findExpertByEmailAndPassword(expertEmail ,expertPassword );
         MyExceptions.expertAccess(expert.isAccessToTheSystem()) ;
@@ -98,6 +101,7 @@ public class ExpertServiceImpl implements ExpertService {
     }
 
     @Override
+    @Transactional
     public void selectingSubServiceForExpert(String email, SubService subServices) {
         Expert expert = expertRepository.findExpertByEmail(email);
         MyExceptions.expertAccess(expert.isAccessToTheSystem());

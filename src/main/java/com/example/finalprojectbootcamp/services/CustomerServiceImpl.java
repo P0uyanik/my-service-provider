@@ -7,9 +7,7 @@ import com.example.finalprojectbootcamp.core.enums.Rater;
 import com.example.finalprojectbootcamp.core.helperClasses.AccountStatus;
 import com.example.finalprojectbootcamp.repositories.CustomerRepository;
 import com.example.finalprojectbootcamp.util.myExceptions.MyExceptions;
-import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.core.util.StringUtils;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
