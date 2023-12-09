@@ -28,10 +28,13 @@ public class SubServiceServiceImpl implements SubServiceService {
     }
 
     @Override
+    @Transactional
     public void addANewSubService(SubService subService, Service service) {
-        Service services = serviceService.findServicesById(service.getId());
+        Service services = serviceService.findServicesByName(service.getName());
         MyExceptions.isServiceAvailable(services);
-        subService.setService(service);
+        SubService subServiceByTitle = subServiceRepository.findSubServiceByTitle(subService.getTitle());
+        MyExceptions.subServiceAlreadyExists(subServiceByTitle) ;
+        subService.setService(services);
         subServiceRepository.save(subService);
     }
 
