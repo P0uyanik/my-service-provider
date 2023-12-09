@@ -40,8 +40,8 @@ public class ExpertServiceImpl implements ExpertService {
     }
 
     @Override
-    public int updateExpertByPassword(long id ,String password) {
-        return expertRepository.updateExpertByPassword(id , password) ;
+    public int updateExpertByPassword(String email ,String password) {
+        return expertRepository.updateExpertByPassword(email , password) ;
     }
 
     @Override

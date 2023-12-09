@@ -14,7 +14,14 @@ public interface ExpertRepository extends JpaRepository<Expert, Long> , Querydsl
                     update Expert e set e.password =:password where e.id=:id
                     """
     )
-    int updateExpertByPassword(long id, String password);
+    int updateExpertByPassword(String email, String password);
+
+    @Query
+            (
+                    """
+                            select e from  Expert  e where  e.email=:email and e.password=:password
+                            """
+            )
 
     Expert findExpertByEmailAndPassword (String email , String password) ;
 
