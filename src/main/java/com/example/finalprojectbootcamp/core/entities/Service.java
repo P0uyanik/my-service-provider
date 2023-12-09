@@ -34,7 +34,7 @@ public class Service extends Auditing {
     }
 
 
-    @OneToMany (fetch = FetchType.EAGER)
+    @OneToMany (fetch = FetchType.EAGER  , cascade = CascadeType.ALL)
     @JoinColumn(name = "service_fk" , referencedColumnName = "id")
     List<SubService> subServices = new ArrayList<>() ;
 
