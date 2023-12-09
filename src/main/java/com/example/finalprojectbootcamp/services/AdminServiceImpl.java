@@ -110,8 +110,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public int updateSubServiceByDescription(long id, String description) {
-        return subServiceService.updateSubServiceByDescription(id , description);
+    public int updateSubServiceByDescription(String name, String description) {
+        return subServiceService.updateSubServiceByDescription(name , description);
     }
 
     @Override
