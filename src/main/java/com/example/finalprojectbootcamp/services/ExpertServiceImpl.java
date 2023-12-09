@@ -47,10 +47,10 @@ public class ExpertServiceImpl implements ExpertService {
     }
 
     @Override
-    public void deleteExpert(Expert expert) {
-        Expert expertByEmail= expertRepository.findExpertByEmailAndPassword(expert.getEmail() , expert.getPassword());
-        MyExceptions.isExpertExists(expertByEmail);
-        expertRepository.delete(expertByEmail);
+    public void deleteExpert(long id) {
+      Expert expert =   expertRepository.findExpertById(id) ;
+        MyExceptions.isExpertExists(expert);
+        expertRepository.delete(expert);
     }
 
     @Override

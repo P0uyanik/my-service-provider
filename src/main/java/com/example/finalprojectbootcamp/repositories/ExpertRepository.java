@@ -46,6 +46,7 @@ public interface ExpertRepository extends JpaRepository<Expert, Long> {
     int updateExpertStatusByEmail(String email);
 
     Expert findExpertByEmail(String email) ;
+    Expert findExpertById (long id) ;
 
 
 }

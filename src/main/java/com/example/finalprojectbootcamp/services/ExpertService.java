@@ -1,10 +1,8 @@
 package com.example.finalprojectbootcamp.services;
 
 
-import com.example.finalprojectbootcamp.core.entities.Expert;
-import com.example.finalprojectbootcamp.core.entities.Offer;
-import com.example.finalprojectbootcamp.core.entities.Order;
-import org.springframework.stereotype.Service;
+import com.example.finalprojectbootcamp.core.entities.*;
+
 
 import java.util.List;
 
@@ -13,7 +11,7 @@ import java.util.List;
 public interface ExpertService {
     /*1*/ void addANewExpert (Expert expert) ; // expert
     /*2*/ int updateExpertByPassword(String email , String password); // expert
-    /*4*/  void deleteExpert (Expert expert) ; //admin
+    /*4*/  void deleteExpert(long id) ; //admin
     /*6*/ List<Expert> findExpertByExpertStatus(); // admin
     /*6-1*/ int updateExpertStatusByEmail(String email) ; // admin
     /*10*/ List<Order> showAllOrdersForExpert() ; //expert
