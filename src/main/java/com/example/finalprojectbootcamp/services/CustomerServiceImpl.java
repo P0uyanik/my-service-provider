@@ -70,8 +70,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public int updateCustomerByPassword(long id, String password) {
-        return customerRepository.updateCustomerByPassword(id, password);
+    public int updateCustomerByPassword(String email, String password) {
+        return customerRepository.updateCustomerByPassword(email, password);
     }
 
     @Override

@@ -9,7 +9,7 @@ import java.util.List;
 public interface CustomerService {
 
    /*1*/ void addANewCustomer (Customer customer) ; // Customer
-   /*2*/ int updateCustomerByPassword( long id , String password) ; // customer
+   /*2*/ int updateCustomerByPassword( String email  , String password) ; // customer
 
 
    /*7*/ List<Service> showAllServicesWithNavigation(int pageSize) ; // customer
