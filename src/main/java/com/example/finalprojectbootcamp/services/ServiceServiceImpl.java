@@ -45,6 +45,11 @@ public class ServiceServiceImpl implements ServiceService {
     }
 
     @Override
+    public Service findServicesByName(String name) {
+        return serviceRepository.findServicesByName(name);
+    }
+
+    @Override
     public List<Service> np() {
         return serviceRepository.findAll(currentPage.nextPageable()).getContent();
     }

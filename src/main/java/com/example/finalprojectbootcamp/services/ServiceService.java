@@ -18,6 +18,6 @@ public interface ServiceService {
     /*5-2*/ List<Service> pp() ; // admin
 
     /*7.1 - 1*/ List <Service> findAllServices () ;
-
+    Service findServicesByName(String name);
 
 }
