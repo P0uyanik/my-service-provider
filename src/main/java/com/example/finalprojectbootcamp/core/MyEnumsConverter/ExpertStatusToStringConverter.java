@@ -8,11 +8,11 @@ import jakarta.persistence.Converter;
 public class ExpertStatusToStringConverter implements AttributeConverter<ExpertStatus, String> {
     @Override
     public String convertToDatabaseColumn(ExpertStatus attribute) {
-        return attribute.toString();
+        return attribute.name();
     }
 
     @Override
     public ExpertStatus convertToEntityAttribute(String dbData) {
-        return ExpertStatus.valueOf(dbData);
+        return Enum.valueOf(ExpertStatus.class , dbData) ;
     }
 }

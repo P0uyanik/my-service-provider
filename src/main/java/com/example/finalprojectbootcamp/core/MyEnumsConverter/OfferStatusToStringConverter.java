@@ -7,11 +7,11 @@ import jakarta.persistence.Converter;
 public class OfferStatusToStringConverter implements AttributeConverter<OfferStatus, String> {
     @Override
     public String convertToDatabaseColumn(OfferStatus attribute) {
-        return attribute.toString();
+        return attribute.name();
     }
 
     @Override
     public OfferStatus convertToEntityAttribute(String dbData) {
-        return OfferStatus.valueOf(dbData);
+        return   Enum.valueOf(OfferStatus.class , dbData  );
     }
 }
