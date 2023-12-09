@@ -25,7 +25,7 @@ public interface AdminService {
     /*7-2*/ List<SubService> ppSubServices() ;
     /*7-3*/ List<SubService> npSubServices() ;
     List<SubService>findAllSubServices() ;
-    /*5-1*/ int updateSubServiceByDescription(long id, String description);
+    /*5-1*/ int updateSubServiceByDescription(String name, String description);
     /*6*/ List<Expert> findExpertByExpertStatus();
     /*6-1*/ int updateExpertStatusByEmail(String email)  ;
     List <Expert> searchingAndFilteringTheExperts (Expert expert) ;

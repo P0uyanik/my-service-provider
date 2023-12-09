@@ -1,10 +1,11 @@
 package com.example.finalprojectbootcamp.repositories;
 
 import com.example.finalprojectbootcamp.core.entities.SubService;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-
+@Transactional
 public interface SubServiceRepository extends JpaRepository<SubService, Long> {
     @Modifying
     @Query
@@ -28,10 +29,10 @@ public interface SubServiceRepository extends JpaRepository<SubService, Long> {
     @Query
             (
                     """
-                            update SubService s set  s.description=:description where s.id=:id
+                            update SubService s set  s.description=:description where s.title=:name
                             """
             )
-    int updateSubServiceByDescription(long id, String description);
+    int updateSubServiceByDescription(String name, String description);
 
 
     SubService findSubServiceByTitle(String title);

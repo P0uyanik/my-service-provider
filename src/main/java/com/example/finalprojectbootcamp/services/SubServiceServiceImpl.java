@@ -4,9 +4,11 @@ import com.example.finalprojectbootcamp.core.entities.Service;
 import com.example.finalprojectbootcamp.core.entities.SubService;
 import com.example.finalprojectbootcamp.repositories.SubServiceRepository;
 import com.example.finalprojectbootcamp.util.myExceptions.MyExceptions;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
 
 import java.util.List;
 
@@ -44,8 +46,8 @@ public class SubServiceServiceImpl implements SubServiceService {
     }
 
     @Override
-    public int updateSubServiceByDescription(long id, String description) {
-        return subServiceRepository.updateSubServiceByDescription(id, description);
+    public int updateSubServiceByDescription(String name, String description) {
+        return subServiceRepository.updateSubServiceByDescription(name, description);
     }
 
     @Override
