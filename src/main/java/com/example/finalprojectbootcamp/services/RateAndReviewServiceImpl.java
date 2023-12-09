@@ -14,8 +14,6 @@ import java.util.List;
 @Service
 public class RateAndReviewServiceImpl implements RateAndReviewService {
     private final RateAndReviewRepository rateAndReviewRepository;
-    private CustomerService customerService;
-    private ExpertService expertService;
     private OfferService offerService;
     private OrderService orderService;
 
@@ -29,21 +27,11 @@ public class RateAndReviewServiceImpl implements RateAndReviewService {
         this.offerService = offerService;
     }
 
-    @Autowired
-    public void setCustomerService (CustomerServiceImpl customerService) {
-        this.customerService = customerService;
-    }
 
 
     @Autowired
     public void setOrderService(OrderServiceImpl orderService) {
         this.orderService = orderService;
-    }
-
-
-    @Autowired
-    public void setExpertService(ExpertServiceImpl expertService) {
-        this.expertService = expertService;
     }
 
 
