@@ -15,7 +15,7 @@ import java.util.List;
 public class ServiceServiceImpl implements ServiceService {
     private Lazy<Page<Service>> currentPage;
     private final ServiceRepository serviceRepository;
-    public static final int PAGE_SIZE = 1;
+    public static final int PAGE_SIZE = 2;
 
     public ServiceServiceImpl(ServiceRepository serviceRepository) {
         currentPage = Lazy.of( () -> serviceRepository.findAll(Pageable.ofSize(PAGE_SIZE)));
