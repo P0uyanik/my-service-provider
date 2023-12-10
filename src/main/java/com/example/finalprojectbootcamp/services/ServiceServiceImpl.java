@@ -32,13 +32,13 @@ public class ServiceServiceImpl implements ServiceService {
 
     @Override
     public List<Service> pp() {
-        currentPage = currentPage.map(page -> serviceRepository.findAll(page.previousPageable()));
+        currentPage = currentPage.map(page -> serviceRepository.findAll(page.previousOrFirstPageable()));
         return currentPage.get().getContent();
     }
 
     @Override
     public List<Service> np() {
-        currentPage = currentPage.map(page -> serviceRepository.findAll(page.nextPageable()));
+        currentPage = currentPage.map(page -> serviceRepository.findAll(page.nextOrLastPageable()));
         return currentPage.get().getContent();
     }
 
