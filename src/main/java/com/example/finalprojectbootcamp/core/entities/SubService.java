@@ -86,14 +86,14 @@ public class SubService extends Auditing {
 
     @OneToMany
     @JoinColumn(name = "subservice_fk" , referencedColumnName = "id")
-    List<SubService> subServices = new ArrayList<>() ;
+    List<Order> orderList = new ArrayList<>() ;
 
-    public List<SubService> getSubServices() {
-        return Collections.unmodifiableList(subServices);
+    public List<Order> getOrder() {
+        return Collections.unmodifiableList(orderList);
     }
 
-    public SubService setSubServices(SubService subServices) {
-        this.subServices.add(subServices) ;
+    public SubService setOrder(Order order) {
+        this.orderList.add(order) ;
         return this ;
     }
 }
