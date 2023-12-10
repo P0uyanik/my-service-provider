@@ -1,5 +1,4 @@
 package com.example.finalprojectbootcamp.services;
-
 import com.example.finalprojectbootcamp.core.entities.Service;
 import com.example.finalprojectbootcamp.core.entities.SubService;
 import com.example.finalprojectbootcamp.repositories.SubServiceRepository;
@@ -7,7 +6,9 @@ import com.example.finalprojectbootcamp.util.myExceptions.MyExceptions;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.util.Lazy;
 
 
 import java.util.List;
@@ -16,15 +17,27 @@ import java.util.List;
 public class SubServiceServiceImpl implements SubServiceService {
     private final SubServiceRepository subServiceRepository;
     private ServiceService serviceService;
-    private Page<SubService> currentPage;
+    private static final int PAGE_SIZE =2  ;
+    private Lazy<Page<SubService>> currentPage;
 
     public SubServiceServiceImpl(SubServiceRepository subServiceRepository) {
+        currentPage = Lazy.of(() ->  subServiceRepository.findAll(Pageable.ofSize(PAGE_SIZE)) ) ;
         this.subServiceRepository = subServiceRepository;
     }
 
     @Autowired
     public void setServiceServiceImpl(ServiceServiceImpl service) {
         this.serviceService = service;
+    }
+
+    public List<SubService> pp() {
+        currentPage = currentPage.map(page ->subServiceRepository.findAll(page.previousOrFirstPageable())) ;
+        return currentPage.get().getContent() ;
+    }
+    public List<SubService> np() {
+        currentPage = currentPage.map(page ->subServiceRepository.findAll(page.nextOrLastPageable())) ;
+        return currentPage.get().getContent() ;
+
     }
 
     @Override
@@ -54,20 +67,12 @@ public class SubServiceServiceImpl implements SubServiceService {
     }
 
     @Override
-    public List<SubService> showSubServices(int pageSize) {
-        MyExceptions.pageSizeIsNotCorrect(pageSize);
-        if (subServiceRepository.count()  < pageSize)
-            pageSize = (int) subServiceRepository.count() ;
-
-        return subServiceRepository.findAll(Pageable.ofSize(pageSize)).getContent();
+    public Page<SubService> findSubServicesWithPageSizeAndElementSize(int pageSize, int elementSize) {
+        Pageable pageable = PageRequest.of(pageSize, elementSize);
+        return subServiceRepository.findAll(pageable);
     }
 
-    public List<SubService> pp() {
-        return subServiceRepository.findAll(currentPage.previousPageable()).getContent() ;
-    }
-    public List<SubService> np() {
-        return subServiceRepository.findAll(currentPage.nextPageable()).getContent() ;
-    }
+
 
     @Override
     public List<SubService> findAll() {

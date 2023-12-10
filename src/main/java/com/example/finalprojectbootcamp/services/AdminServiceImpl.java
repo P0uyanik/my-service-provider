@@ -5,6 +5,7 @@ import com.example.finalprojectbootcamp.core.entities.*;
 import com.example.finalprojectbootcamp.repositories.AdminRepository;
 import com.example.finalprojectbootcamp.util.myExceptions.MyExceptions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 @org.springframework.stereotype.Service
@@ -86,8 +87,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<SubService> showAllSubServices(int pageSize) {
-        return subServiceService.showSubServices(pageSize);
+    public Page<SubService> findSubServicesWithPageSizeAndElementSize(int pageSize, int elementSize) {
+        return subServiceService.findSubServicesWithPageSizeAndElementSize(pageSize , elementSize);
     }
 
     @Override
@@ -128,6 +129,11 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public List<Customer> searchingAndFilteringTheCustomers(Customer customer) {
         return customerService.searchingAndFilteringTheCustomers(customer) ;
+    }
+
+    @Override
+    public Page<Service> findServicesWithPageSizeAndElementSize(int pageSize, int elementSize) {
+       return service.findServicesWithPageSizeAndElementSize(pageSize , elementSize) ;
     }
 }
 

@@ -77,8 +77,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<SubService> showSubServices(int pageSize) {
-        return subServiceService.showSubServices(pageSize);
+    public Page<SubService> findSubServicesWithPageSizeAndElementSize(int pageSize, int elementSize) {
+        return subServiceService.findSubServicesWithPageSizeAndElementSize(pageSize , elementSize);
     }
 
     @Override

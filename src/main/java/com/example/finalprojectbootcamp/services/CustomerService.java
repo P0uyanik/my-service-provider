@@ -15,7 +15,7 @@ public interface CustomerService {
 
    /*7-1*/public List<Service> npService() ; // customer
    /*7-2*/public List<Service> ppService() ; // customer
-   /*7-1*/  List<SubService> showSubServices (int pageSize) ; // customer
+   /*7-1*/  Page<SubService> findSubServicesWithPageSizeAndElementSize(int pageSize, int elementSize); // customer
    /*7-2*/ List<SubService> ppSubService() ; // customer
    /*7-3*/ List<SubService> npSubService() ; // customer
    /*7.1-1*/ List<Service> findAllServices() ; // customer

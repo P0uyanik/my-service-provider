@@ -1,6 +1,7 @@
 package com.example.finalprojectbootcamp.services;
 
 import com.example.finalprojectbootcamp.core.entities.*;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public interface AdminService {
     /*5-1*/ List<Service> np() ;
     /*5-2*/ List<Service> pp() ;
 
-    /*7-1*/  List<SubService> showAllSubServices (int pageSize) ;
+    /*7-1*/  Page<SubService> findSubServicesWithPageSizeAndElementSize(int pageSize, int elementSize) ;
     /*7-2*/ List<SubService> ppSubServices() ;
     /*7-3*/ List<SubService> npSubServices() ;
     List<SubService>findAllSubServices() ;
@@ -30,4 +31,6 @@ public interface AdminService {
     /*6-1*/ int updateExpertStatusByEmail(String email)  ;
     List <Expert> searchingAndFilteringTheExperts (Expert expert) ;
     List <Customer> searchingAndFilteringTheCustomers (Customer customer) ;
+
+    Page<Service> findServicesWithPageSizeAndElementSize(int pageSize, int elementSize);
 }
