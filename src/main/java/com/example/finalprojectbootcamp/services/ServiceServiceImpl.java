@@ -4,16 +4,21 @@ import com.example.finalprojectbootcamp.core.entities.Service;
 import com.example.finalprojectbootcamp.repositories.ServiceRepository;
 import com.example.finalprojectbootcamp.util.myExceptions.MyExceptions;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.util.Lazy;
 
 import java.util.List;
+
 @org.springframework.stereotype.Service
 
 public class ServiceServiceImpl implements ServiceService {
-    private Page<Service> currentPage;
+    private Lazy<Page<Service>> currentPage;
     private final ServiceRepository serviceRepository;
+    public static final int PAGE_SIZE = 1;
 
     public ServiceServiceImpl(ServiceRepository serviceRepository) {
+        currentPage = Lazy.of( () -> serviceRepository.findAll(Pageable.ofSize(PAGE_SIZE)));
         this.serviceRepository = serviceRepository;
     }
 
@@ -26,24 +31,21 @@ public class ServiceServiceImpl implements ServiceService {
     }
 
     @Override
-    public Service findServicesById(long id) {
-        Service servicesById = serviceRepository.findServicesById(id);
-        MyExceptions.isServiceAvailable(servicesById);
-        return servicesById ;
-    }
-
-
-    private Page<Service> findServicesWithPageSize(int pageSize) {
-        return serviceRepository.findAll(Pageable.ofSize(pageSize));
-    }
-    @Override
     public List<Service> pp() {
-        return serviceRepository.findAll(currentPage.previousPageable()).getContent();
+        currentPage = currentPage.map(page -> serviceRepository.findAll(page.previousPageable()));
+        return currentPage.get().getContent();
     }
+
+    @Override
+    public List<Service> np() {
+        currentPage = currentPage.map(page -> serviceRepository.findAll(page.nextPageable()));
+        return currentPage.get().getContent();
+    }
+
 
     @Override
     public List<Service> findAllServices() {
-        return serviceRepository.findAll() ;
+        return serviceRepository.findAll();
     }
 
     @Override
@@ -52,19 +54,9 @@ public class ServiceServiceImpl implements ServiceService {
     }
 
     @Override
-    public List<Service> np() {
-        return serviceRepository.findAll(currentPage.nextPageable()).getContent();
+    public Page<Service> findServicesWithPageSizeAndElementSize(int pageSize, int elementSize) {
+        Pageable pageable = PageRequest.of(pageSize, elementSize);
+        return serviceRepository.findAll(pageable);
     }
 
-    @Override
-    public List<Service> showAllServices(int pageSize) {
-        MyExceptions.pageSizeIsNotCorrect(pageSize);
-
-        if (serviceRepository.count()  < pageSize)
-            pageSize = (int) serviceRepository.count() ;
-
-        this.currentPage = findServicesWithPageSize(pageSize);
-
-        return currentPage.getContent();
-    }
 }

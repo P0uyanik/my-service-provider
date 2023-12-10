@@ -74,10 +74,6 @@ public class AdminServiceImpl implements AdminService {
         expertService.selectingSubServiceForExpert(email , subServices);
     }
 
-    @Override
-    public List<Service> showAllServices(int pageSize) {
-        return service.showAllServices(pageSize);
-    }
 
     @Override
     public List<Service> np() {

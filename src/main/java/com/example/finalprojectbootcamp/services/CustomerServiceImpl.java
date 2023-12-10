@@ -65,10 +65,6 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.updateCustomerByPassword(email, password);
     }
 
-    @Override
-    public List<Service> showAllServicesWithNavigation(int pageSize) {
-        return serviceService.showAllServices(pageSize);
-    }
 
     @Override
     public List<Service> npService() {
@@ -124,9 +120,6 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public List<Offer> customerOffers(String customerEmail , String customerPassword , long orderId) {
         Customer customerById = findCustomerByEmailAndPassword(customerEmail , customerPassword);
-
-
-
         Order orderById = orderService.findOrderById(orderId);
         ///////// Sort mit Comperator
         return MyExceptions.checkOrderForCustomer(customerById, orderById);
@@ -167,16 +160,10 @@ public class CustomerServiceImpl implements CustomerService {
         List<Offer> offers = customerOffers(customerEmail, customerPassword, orderId);
         MyExceptions.checkOffersToFindActiveOffer(offers);
         Order order = orderService.findOrderById(orderId);
-
         Offer offer = findingSelectedOffer(offers);
         LocalDate startTime = offer.getStartTime();
-
         int checkStartTime = LocalDate.now().compareTo(startTime);
-
-
         MyExceptions.checkStartTimeException(checkStartTime) ;
-
-
         order.setOrderStatus(OrderStatus.STARTED);
         orderService.addANewOrder(order);
     }
