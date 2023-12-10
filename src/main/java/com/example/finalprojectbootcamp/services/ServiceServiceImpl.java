@@ -20,6 +20,8 @@ public class ServiceServiceImpl implements ServiceService {
 
     @Override
     public void addANewService(Service service) {
+        Service servicesByName = serviceRepository.findServicesByName(service.getName());
+        MyExceptions.serviceAlreadyExists(servicesByName);
         serviceRepository.save(service);
     }
 
