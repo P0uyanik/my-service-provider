@@ -33,7 +33,10 @@ public class RateAndReviewServiceImpl implements RateAndReviewService {
     public void setOrderService(OrderServiceImpl orderService) {
         this.orderService = orderService;
     }
-
+    @Override
+    public void addANewRateAndReview(RateAndReview rateAndReview) {
+        rateAndReviewRepository.save(rateAndReview) ;
+    }
 
     @Override
     public void ratingAndReviewForExpert(RateAndReview rateAndReview, Customer customer, Order order, Offer offer) {
