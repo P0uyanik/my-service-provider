@@ -16,7 +16,7 @@ public interface AdminService {
 
 
 
-    void selectingSubServiceForExpert (String email , SubService subServices) ;// admin
+    void selectingSubServiceForExpert (String email , String subServicesTitle) ;// admin
 
 
     /*5-1*/ List<Service> np() ;

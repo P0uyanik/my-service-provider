@@ -21,6 +21,6 @@ public interface ExpertService {
 
     /*17*/ double checkExpertRating (long expertId) ; // expert
     /*18*/  List <Expert> searchingAndFilteringTheExperts (Expert expert) ; // admin
-    void selectingSubServiceForExpert (String email , SubService subServices) ;// admin
+    void selectingSubServiceForExpert (String email , String subServicesTitle) ;// admin
 
 }
