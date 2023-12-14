@@ -10,7 +10,8 @@ import java.util.Collections;
 import java.util.List;
 
 @Entity
-public class Customer extends Person {
+public class Customer extends User {
+    private Role role = Role.CUSTOMER ;
     public Customer(String name, String lastname, String username, String email, String password) {
         super(name, lastname, username, email, password);
     }
@@ -66,6 +67,12 @@ public class Customer extends Person {
     public void setAccountStatus(AccountStatus accountStatus) {
         this.accountStatus = accountStatus;
     }
+    public Role getRole() {
+        return role;
+    }
 
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
 }
