@@ -2,7 +2,7 @@ package com.example.finalprojectbootcamp.services;
 
 import com.example.finalprojectbootcamp.core.entities.Order;
 import com.example.finalprojectbootcamp.repositories.OrderRepository;
-import com.example.finalprojectbootcamp.util.myExceptions.MyExceptions;
+import com.example.finalprojectbootcamp.exceptions.MyExceptions;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

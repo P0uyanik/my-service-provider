@@ -5,7 +5,7 @@ import com.example.finalprojectbootcamp.core.enums.OfferStatus;
 import com.example.finalprojectbootcamp.core.enums.OrderStatus;
 import com.example.finalprojectbootcamp.core.enums.Rater;
 import com.example.finalprojectbootcamp.repositories.CustomerRepository;
-import com.example.finalprojectbootcamp.util.myExceptions.MyExceptions;
+import com.example.finalprojectbootcamp.exceptions.MyExceptions;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -97,17 +97,17 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer findCustomerByEmailAndPassword(String email  , String password  ) {
+    public Customer findCustomerByEmailAndPassword(String email, String password) {
         Customer customer = customerRepository.findCustomerByEmailAndPassword(email, password);
         MyExceptions.isCustomerRegistered(customer);
-        return customer ;
+        return customer;
     }
 
     @Override
     @Transactional
     public void registrationOfTheOrder(String customerEmail, String customerPassword, String serviceName , String subServiceName, Order order) {
         Service servicesById = serviceService.findServicesByName(serviceName);
-        SubService mySubservice = servicesById.getSubServices().stream().filter(subService -> subService.getTitle().equals(subServiceName)).findFirst().orElse(null) ;
+        SubService mySubservice = servicesById.getSubServices().stream().filter(subService -> subService.getTitle().equals(subServiceName)).findFirst().orElse(null);
         MyExceptions.isSubServiceAvailable(mySubservice);
         Customer customerByEmail = findCustomerByEmailAndPassword(customerEmail, customerPassword);
         order.setSubService(mySubservice);

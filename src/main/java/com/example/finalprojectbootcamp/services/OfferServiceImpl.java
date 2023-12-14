@@ -2,7 +2,7 @@ package com.example.finalprojectbootcamp.services;
 
 import com.example.finalprojectbootcamp.core.entities.Offer;
 import com.example.finalprojectbootcamp.repositories.OfferRepository;
-import com.example.finalprojectbootcamp.util.myExceptions.MyExceptions;
+import com.example.finalprojectbootcamp.exceptions.MyExceptions;
 import org.springframework.stereotype.Service;
 
 @Service

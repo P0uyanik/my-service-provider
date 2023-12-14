@@ -3,7 +3,7 @@ package com.example.finalprojectbootcamp.services;
 import com.example.finalprojectbootcamp.core.entities.*;
 
 import com.example.finalprojectbootcamp.repositories.ExpertRepository;
-import com.example.finalprojectbootcamp.util.myExceptions.MyExceptions;
+import com.example.finalprojectbootcamp.exceptions.MyExceptions;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -80,6 +80,7 @@ public class ExpertServiceImpl implements ExpertService {
     public void submittingOfferForOrder(String expertEmail , String expertPassword, long orderId, Offer offer) {
         Expert expert = findExpertByEmailAndPassword(expertEmail ,expertPassword );
         MyExceptions.expertAccess(expert.isAccessToTheSystem()) ;
+        MyExceptions.checkExpertStatus (expert.getExpertStatus()) ;
 
         double avgRating = rateAndReviewService.checkExpertRating(expert.getId());
         MyExceptions.negativeRating(avgRating);
