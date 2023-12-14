@@ -18,7 +18,7 @@ public class Customer extends User {
 
     protected Customer() {
     }
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER , cascade = CascadeType.MERGE)
     @JoinColumn(name = "customer_fk" , referencedColumnName = "id")
     List<Order> orders = new ArrayList<>();
 
