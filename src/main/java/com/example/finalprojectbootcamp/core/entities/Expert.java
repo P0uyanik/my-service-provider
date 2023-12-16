@@ -1,9 +1,7 @@
 package com.example.finalprojectbootcamp.core.entities;
-
 import com.example.finalprojectbootcamp.core.MyEnumsConverter.ExpertStatusToStringConverter;
 import com.example.finalprojectbootcamp.core.base.User;
 import com.example.finalprojectbootcamp.core.enums.ExpertStatus;
-import com.example.finalprojectbootcamp.core.enums.Role;
 import com.example.finalprojectbootcamp.core.helperClasses.AccountStatus;
 import jakarta.persistence.*;
 
@@ -12,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Entity
+@DiscriminatorValue(value = "EXPERT")
 public class Expert extends User {
     private Role role = Role.EXPERT ;
     @Convert (converter = ExpertStatusToStringConverter.class)
@@ -113,11 +112,4 @@ public class Expert extends User {
     }
 
 
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
 }

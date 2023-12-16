@@ -1,6 +1,5 @@
 package com.example.finalprojectbootcamp.core.base;
 
-import com.example.finalprojectbootcamp.core.enums.Role;
 import jakarta.persistence.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -21,7 +20,6 @@ public  class User extends Auditing {
     String username;
     String email;
     String password;
-    protected Role role  ;
     public User(String name, String lastname, String username, String email, String password) {
         this.name = name;
         this.lastname = lastname;
@@ -32,26 +30,6 @@ public  class User extends Auditing {
 
     protected User() {
     }
-    /*
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_roles",
-            joinColumns = {@JoinColumn(name = "id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "id", referencedColumnName = "role_id")}
-
-    )
-    private List<Roles> roles = new ArrayList<>();
-
-    public List<Roles> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<Roles> roles) {
-        this.roles = roles;
-    }
-
-
-     */
-
 
     public Long getId() {
         return id;
@@ -97,11 +75,5 @@ public  class User extends Auditing {
         this.password = password;
     }
 
-    public Role getRole() {
-        return role;
-    }
 
-    public void setRole(Role role) {
-        this.role = role;
-    }
 }

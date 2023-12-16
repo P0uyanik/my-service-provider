@@ -1,7 +1,5 @@
 package com.example.finalprojectbootcamp.core.entities;
-
 import com.example.finalprojectbootcamp.core.base.User;
-import com.example.finalprojectbootcamp.core.enums.Role;
 import com.example.finalprojectbootcamp.core.helperClasses.AccountStatus;
 import jakarta.persistence.*;
 
@@ -10,8 +8,8 @@ import java.util.Collections;
 import java.util.List;
 
 @Entity
+@DiscriminatorValue(value = "CUSTOMER")
 public class Customer extends User {
-    private Role role = Role.CUSTOMER ;
     public Customer(String name, String lastname, String username, String email, String password) {
         super(name, lastname, username, email, password);
     }
@@ -67,12 +65,6 @@ public class Customer extends User {
     public void setAccountStatus(AccountStatus accountStatus) {
         this.accountStatus = accountStatus;
     }
-    public Role getRole() {
-        return role;
-    }
 
-    public void setRole(Role role) {
-        this.role = role;
-    }
 
 }
