@@ -32,15 +32,6 @@ public interface CustomerService {
 
    /*14*/    void changingTheOrderStatusToStarted(String customerEmail , String customerPassword , long orderId);  // customer
 
-   /*7*/ List<Service> showAllServicesWithNavigation(int pageSize) ;
-   /*7-1*/public List<Service> npService() ;
-   /*7-2*/public List<Service> ppService() ;
-   /*7-1*/  List<SubService> showSubServices (int pageSize) ;
-   /*7-2*/ List<SubService> ppSubService() ;
-   /*7-3*/ List<SubService> npSubService() ;
-   /*7.1-1*/ List<Service> findAllServices() ;
-   Customer findCustomerByEmailAndPassword(String email ,String  password) ;
-   /*7.1-2*/void registrationOfTheOrder (String customerEmail , String customerPassword , long serviceId , long subServiceId  , Order order ) ;
 
    /*11*/    public List<Offer> customerOffers(String customerEmail , String customerPassword , long orderId) ;
    /*13*/ void selectingOffer(String customerEmail , String customerPassword , long orderId, long offerId) ;
