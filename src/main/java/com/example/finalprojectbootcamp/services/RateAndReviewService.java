@@ -1,8 +1,7 @@
 package com.example.finalprojectbootcamp.services;
 
 import com.example.finalprojectbootcamp.core.entities.*;
-import com.example.finalprojectbootcamp.repositories.RateAndReviewRepository;
-import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 
