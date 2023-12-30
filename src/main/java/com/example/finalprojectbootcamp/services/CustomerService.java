@@ -33,18 +33,17 @@ public interface CustomerService {
    /*14*/    void changingTheOrderStatusToStarted(String customerEmail , String customerPassword , long orderId);  // customer
 
 
-   /*11*/    public List<Offer> customerOffers(String customerEmail , String customerPassword , long orderId) ;
-   /*13*/ void selectingOffer(String customerEmail , String customerPassword , long orderId, long offerId) ;
+   void changingTheOrderStatusToCompleted(String customerEmail , String customerPassword , long orderId , RateAndReview rateAndReview ) ; // customer
 
-   /*16*/  void submitComment(String customerEmail , String customerPassword , long orderId , RateAndReview rateAndReview )   ; // customer
+   /*16*/       void submitComment(List<Offer> offers , Order order, RateAndReview rateAndReview)    ; // customer
 
-   /*13*/    void cancellingAnOffer(String customerEmail , String customerPassword , long orderId, long offerId) ;
+  List <Customer> searchingAndFilteringTheCustomers (Customer customer) ; // admin
 
 
    void payingAmountWithCredit (String customerEmail ,  String customerPassword , long orderId ) ; // customer
 
 
    /*10*/void ratingAndReviewForExpert(RateAndReview rateAndReview , String customerEmail , String customerPassword , Order order, Offer offer) ; //customer
-   /*15*/ void executionTimeOfTaskAndScheduledTime (String customerEmail , String customerPassword , long orderId )  ; // customer automat
+   /*15*/ void executionTimeOfTaskAndScheduledTime (List<Offer> offers, long orderId )  ; // customer automat
 }
 
