@@ -107,8 +107,10 @@ public class ExpertServiceImpl implements ExpertService {
         Expert expert = expertRepository.findExpertByEmail(email);
         MyExceptions.isExpertExists(expert);
         MyExceptions.expertAccess(expert.isAccessToTheSystem());
-        subServiceService.findSubServiceByTitle(subServices.getTitle());
-        expert.setSubServices(subServices);
+        SubService subServiceByTitle = subServiceService.findSubServiceByTitle(subServicesTitle);
+        MyExceptions.isSubServiceAvailable(subServiceByTitle);
+        subServiceByTitle.setExpert(expert);
+        expert.setSubServices(subServiceByTitle);
         expertRepository.save(expert) ;
     }
 
