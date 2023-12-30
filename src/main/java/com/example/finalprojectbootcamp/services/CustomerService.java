@@ -21,7 +21,7 @@ public interface CustomerService {
    /*7-3*/ List<SubService> npSubService() ; // customer
    /*7.1-1*/ List<Service> findAllServices() ; // customer
    Customer findCustomerByEmailAndPassword(String email ,String  password) ; // customer
-   /*7.1-2*/void registrationOfTheOrder (String customerEmail , String customerPassword , long serviceId , long subServiceId  , Order order ) ; //customer
+   /*7.1-2*/void registrationOfTheOrder (String customerEmail , String customerPassword , String  serviceName , String subServiceName  , Order order ) ; //customer
 
    /*11*/    public List<Offer> customerOffers(String customerEmail , String customerPassword , long orderId) ; // // customer
    /*13*/ void selectingOffer(String customerEmail , String customerPassword , long orderId, long offerId) ; // // customer

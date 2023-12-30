@@ -105,7 +105,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional
-    public void registrationOfTheOrder(String customerEmail, String customerPassword, String serviceName , String subServiceName, Order order) {
+    public void registrationOfTheOrder(String customerEmail, String customerPassword, String serviceName, String subServiceName, Order order) {
         Service servicesById = serviceService.findServicesByName(serviceName);
         SubService mySubservice = servicesById.getSubServices().stream().filter(subService -> subService.getTitle().equals(subServiceName)).findFirst().orElse(null);
         MyExceptions.isSubServiceAvailable(mySubservice);
