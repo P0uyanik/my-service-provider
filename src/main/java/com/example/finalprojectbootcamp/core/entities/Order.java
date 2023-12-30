@@ -100,7 +100,7 @@ public class Order extends Auditing {
         this.orderStatus = orderStatus;
     }
 
-    @OneToMany
+    @OneToMany (cascade = CascadeType.MERGE , fetch = FetchType.EAGER)
     @OrderBy(value = "suggestedPrice asc ")
     @JoinColumn(name = "order_fk" , referencedColumnName = "id")
     List<Offer> offers = new ArrayList<>() ;
