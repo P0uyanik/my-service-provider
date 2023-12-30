@@ -12,11 +12,9 @@ import java.util.List;
 @Entity
 @DiscriminatorValue(value = "EXPERT")
 public class Expert extends User {
-    private Role role = Role.EXPERT ;
     @Convert (converter = ExpertStatusToStringConverter.class)
     private ExpertStatus expertStatus = ExpertStatus.NEW;
     private boolean accessToTheSystem = false ;
-
 
     @Embedded
     private AccountStatus accountStatus;
@@ -47,7 +45,6 @@ public class Expert extends User {
         this.expertStatus = expertStatus;
     }
 
-
     @OneToMany (cascade = {CascadeType.MERGE , CascadeType.PERSIST } )
     @JoinColumn(name = "expert_fk" , referencedColumnName = "id")
     List<SubService> subServices = new ArrayList<>() ;
@@ -73,7 +70,6 @@ public class Expert extends User {
         this.credit = credit;
     }
 
-
     @OneToMany
     @JoinColumn(name = "expert_fk" ,referencedColumnName = "id")
     List<RateAndReview> rateAndReviews = new ArrayList<>() ;
@@ -87,8 +83,6 @@ public class Expert extends User {
         return this ;
     }
 
-
-
     public AccountStatus getAccountStatus() {
         return accountStatus;
     }
@@ -96,12 +90,6 @@ public class Expert extends User {
     public void setAccountStatus(AccountStatus accountStatus) {
         this.accountStatus = accountStatus;
     }
-
-
-
-
-
-
 
     public boolean isAccessToTheSystem() {
         return accessToTheSystem;
