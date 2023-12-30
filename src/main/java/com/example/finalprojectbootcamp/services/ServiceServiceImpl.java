@@ -2,7 +2,7 @@ package com.example.finalprojectbootcamp.services;
 
 import com.example.finalprojectbootcamp.core.entities.Service;
 import com.example.finalprojectbootcamp.repositories.ServiceRepository;
-import com.example.finalprojectbootcamp.util.myExceptions.MyExceptions;
+import com.example.finalprojectbootcamp.exceptions.MyExceptions;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
