@@ -105,6 +105,7 @@ public class ExpertServiceImpl implements ExpertService {
     @Transactional
     public void selectingSubServiceForExpert(String email, String subServicesTitle) {
         Expert expert = expertRepository.findExpertByEmail(email);
+        MyExceptions.isExpertExists(expert);
         MyExceptions.expertAccess(expert.isAccessToTheSystem());
         subServiceService.findSubServiceByTitle(subServices.getTitle());
         expert.setSubServices(subServices);
