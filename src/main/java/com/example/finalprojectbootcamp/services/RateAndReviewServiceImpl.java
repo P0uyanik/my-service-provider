@@ -71,6 +71,8 @@ public class RateAndReviewServiceImpl implements RateAndReviewService {
                 // ekhtelafe in ha har cheghard ke hast
             }
 
-        }
+    @Override
+    public double checkExpertRating(long expertId) {
+        return rateAndReviewRepository.checkExpertRating(expertId);
     }
 }
