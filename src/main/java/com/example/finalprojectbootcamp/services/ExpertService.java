@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface ExpertService {
     /*1*/ void addANewExpert (Expert expert) ; // expert
-    /*2*/ int updateExpertByPassword(String email , String password); // expert
+    /*2*/int updateExpertByPassword( String email  , String oldPassword ,  String password) ;// expert
     /*4*/  void deleteExpert(long id) ; //admin
     /*6*/ List<Expert> findExpertByExpertStatus(); // admin
     /*6-1*/ int updateExpertStatusByEmail(String email) ; // admin

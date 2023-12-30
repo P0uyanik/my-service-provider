@@ -1,7 +1,5 @@
 package com.example.finalprojectbootcamp.services;
-
 import com.example.finalprojectbootcamp.core.entities.*;
-
 import com.example.finalprojectbootcamp.repositories.ExpertRepository;
 import com.example.finalprojectbootcamp.exceptions.MyExceptions;
 import jakarta.transaction.Transactional;
@@ -42,8 +40,8 @@ public class ExpertServiceImpl implements ExpertService {
     }
 
     @Override
-    public int updateExpertByPassword(String email ,String password) {
-        return expertRepository.updateExpertByPassword(email , password) ;
+    public  int updateExpertByPassword( String email  , String oldPassword ,  String password) {
+        return expertRepository.updateExpertByPassword(email , oldPassword , password) ;
     }
 
     @Override
@@ -76,6 +74,7 @@ public class ExpertServiceImpl implements ExpertService {
         return orderService.showAllOrdersForExpert() ;
     }
     @Override
+
     @Transactional
     public void submittingOfferForOrder(String expertEmail , String expertPassword, long orderId, Offer offer) {
         Expert expert = findExpertByEmailAndPassword(expertEmail ,expertPassword );
