@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 public class Offer extends Auditing {
@@ -60,7 +59,7 @@ public class Offer extends Auditing {
         this.offerStatus = offerStatus;
     }
 
-    @ManyToOne (cascade = CascadeType.MERGE)
+    @ManyToOne (cascade = CascadeType.MERGE , fetch = FetchType.EAGER)
     @JoinColumn(name = "expert_fk", referencedColumnName = "id")
     private Expert expert;
 
