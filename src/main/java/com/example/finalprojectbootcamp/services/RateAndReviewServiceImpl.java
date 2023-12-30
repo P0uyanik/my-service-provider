@@ -42,23 +42,12 @@ public class RateAndReviewServiceImpl implements RateAndReviewService {
     public void ratingAndReviewForExpert(RateAndReview rateAndReview, Customer customer, Order order, Offer offer) {
 
         Expert expertById = offer.getExpert();
-        MyExceptions.isExpertExists(expertById);
-
-        Customer customerById = customerService.findCustomerByEmailAndPassword(customer.getEmail(), customer.getPassword());
-        MyExceptions.isCustomerRegistered(customerById);
-
-
         Order orderById = orderService.findOrderById(order.getId());
         MyExceptions.isOrderExists(orderById);
-
         Offer offerById = offerService.findOfferById(offer.getId());
-        MyExceptions.isOfferExists(offerById);
-
-        MyExceptions.checkOfferOrderExpertRelation(customerById, expertById, offerById, orderById);
-
-
-        customerById.setRateAndReviews(rateAndReview);
+        MyExceptions.checkOfferOrderExpertRelation(customer, expertById, offerById, orderById);
         rateAndReview.setExpert(expertById);
+        customer.setRateAndReviews(rateAndReview);
         rateAndReviewRepository.save(rateAndReview);
 
     }
