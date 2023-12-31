@@ -17,7 +17,9 @@ public  class User extends Auditing {
     Long id;
     String name;
     String lastname;
+    @Column(unique = true)
     String username;
+    @Column(unique = true)
     String email;
     String password;
     public User(String name, String lastname, String username, String email, String password) {
@@ -73,6 +75,13 @@ public  class User extends Auditing {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+
+    @Transient
+    public String getDiscriminatorValue(){
+        DiscriminatorValue val = this.getClass().getAnnotation( DiscriminatorValue.class );
+        return val == null ? null : val.value();
     }
 
 
