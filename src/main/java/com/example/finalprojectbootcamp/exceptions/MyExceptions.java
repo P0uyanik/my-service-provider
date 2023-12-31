@@ -5,6 +5,7 @@ import com.example.finalprojectbootcamp.core.enums.ExpertStatus;
 import com.example.finalprojectbootcamp.core.enums.OfferStatus;
 import com.example.finalprojectbootcamp.core.enums.OrderStatus;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class MyExceptions {
@@ -136,5 +137,10 @@ public class MyExceptions {
     public static void checkExpertStatus(ExpertStatus expertStatus) {
         if(expertStatus.equals(ExpertStatus.PENDING_APPROVAL) || expertStatus.equals(ExpertStatus.NEW) )
             throw new ExpertAccessException() ;
+    }
+
+    public static void checkingAccountBalance(BigDecimal creditAmount, BigDecimal suggestedPrice) {
+        if (creditAmount.compareTo(suggestedPrice) < 0 )
+            throw new AccountBalanceException(String.valueOf(suggestedPrice)) ;
     }
 }
