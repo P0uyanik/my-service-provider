@@ -8,6 +8,8 @@ import com.example.finalprojectbootcamp.repositories.CustomerRepository;
 import com.example.finalprojectbootcamp.exceptions.MyExceptions;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -22,8 +24,11 @@ public class CustomerServiceImpl implements CustomerService {
     private CreditService creditService;
     private RateAndReviewService rateAndReviewService;
 
-    public CustomerServiceImpl(CustomerRepository customerRepository) {
+    private final PasswordEncoder passwordEncoder ;
+
+    public CustomerServiceImpl(CustomerRepository customerRepository, PasswordEncoder passwordEncoder) {
         this.customerRepository = customerRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Autowired
@@ -57,6 +62,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void addANewCustomer(Customer customer) {
+        customer.setPassword(passwordEncoder.encode(customer.getUsername()));
         customerRepository.save(customer);
     }
 
@@ -78,7 +84,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Page<SubService> findSubServicesWithPageSizeAndElementSize(int pageSize, int elementSize) {
-        return subServiceService.findSubServicesWithPageSizeAndElementSize(pageSize , elementSize);
+        return subServiceService.findSubServicesWithPageSizeAndElementSize(pageSize, elementSize);
     }
 
     @Override
@@ -117,17 +123,19 @@ public class CustomerServiceImpl implements CustomerService {
 
     }
 
+
     @Override
-    public List<Offer> customerOffers(String customerEmail , String customerPassword , long orderId) {
-        Customer customerById = findCustomerByEmailAndPassword(customerEmail , customerPassword);
+    public List<Offer> customerOffers(String customerEmail, String customerPassword, long orderId) {
+
+        Customer customerById = findCustomerByEmailAndPassword(customerEmail, customerPassword);
         Order orderById = orderService.findOrderById(orderId);
         ///////// Sort mit Comperator
         return MyExceptions.checkOrderForCustomer(customerById, orderById);
     }
 
     @Override
-    public void selectingOffer(String customerEmail , String customerPassword , long orderId, long offerId) {
-        List<Offer> offers = customerOffers(customerEmail,customerPassword ,  orderId);
+    public void selectingOffer(String customerEmail, String customerPassword, long orderId, long offerId) {
+        List<Offer> offers = customerOffers(customerEmail, customerPassword, orderId);
         Offer offer = offerService.findOfferById(offerId);
         Order order = orderService.findOrderById(orderId);
         MyExceptions.checkOffers(offers);
@@ -163,7 +171,7 @@ public class CustomerServiceImpl implements CustomerService {
         Offer offer = findingSelectedOffer(offers);
         LocalDate startTime = offer.getStartTime();
         int checkStartTime = LocalDate.now().compareTo(startTime);
-        MyExceptions.checkStartTimeException(checkStartTime) ;
+        MyExceptions.checkStartTimeException(checkStartTime);
         order.setOrderStatus(OrderStatus.STARTED);
         orderService.addANewOrder(order);
     }
@@ -176,7 +184,8 @@ public class CustomerServiceImpl implements CustomerService {
         order.setCompletionDateOfTask(LocalDate.now());
         order.setOrderStatus(OrderStatus.COMPLETED);
         orderService.addANewOrder(order);
-        submitComment(customerEmail, customerPassword, orderId, rateAndReview);
+        executionTimeOfTaskAndScheduledTime(offers, orderId);
+        submitComment(offers, order, rateAndReview);
     }
 
 
@@ -186,66 +195,46 @@ public class CustomerServiceImpl implements CustomerService {
 
 
     @Override
-    public void submitComment(String customerEmail, String customerPassword, long orderId, RateAndReview rateAndReview) {
-        Order order= orderService.findOrderById(orderId);
-        MyExceptions.orderIfHasBeenCompleted(order) ;
-        List<Offer> offers = customerOffers(customerEmail, customerPassword, orderId);
+    public void submitComment(List<Offer> offers, Order order, RateAndReview rateAndReview) {
+        MyExceptions.orderIfHasBeenCompleted(order);
         Offer offer = findingSelectedOffer(offers);
         Expert expert = offer.getExpert();
         rateAndReview.setRater(Rater.CUSTOMER);
+        rateAndReview.setExpert(expert);
+        rateAndReviewService.addANewRateAndReview(rateAndReview);
+        /*
         expert.setRateAndReviews(rateAndReview);
         expertService.addANewExpert(expert);
+         */
+
 
     }
 
     @Override
     public List<Customer> searchingAndFilteringTheCustomers(Customer customer) {
-        QCustomer myCustomer = QCustomer.customer;
-        String email = customer.getEmail();
-        String name = customer.getName();
-        String lastname = customer.getLastname();
-        String username = customer.getUsername();
-        AccountStatus accountStatus = customer.getAccountStatus();
 
-        BooleanBuilder booleanBuilder = new BooleanBuilder();
-
-        BooleanExpression isEmailSelected;
-        BooleanExpression isNameSelected;
-        BooleanExpression isLastnameSelected;
-        BooleanExpression isUsernameSelected;
-        BooleanExpression isAccessToAccount;
-
-        if (!StringUtils.isNullOrEmpty(email))
-            isEmailSelected = myCustomer.email.isNotNull();
-        if (!StringUtils.isNullOrEmpty(name))
-            isNameSelected = myCustomer.name.isNull();
-        if (!StringUtils.isNullOrEmpty(lastname))
-            isLastnameSelected = myCustomer.lastname.isNull();
-        if (!StringUtils.isNullOrEmpty(username))
-            isUsernameSelected = myCustomer.username.isNull();
-        if (accountStatus.isAccessToAccount())
-            isAccessToAccount = myCustomer.accountStatus.isNotNull().isTrue();
-
-
-        customerRepository.findAll();
         return null;
     }
 
     @Override
     public void payingAmountWithCredit(String customerEmail, String customerPassword, long orderId) {
-        creditService.payingAmountWithCredit(customerEmail, customerPassword, orderId);
+        orderService.findOrderById(orderId);
+        List<Offer> offers = customerOffers(customerEmail, customerPassword, orderId);
+        Customer customer = findCustomerByEmailAndPassword(customerEmail, customerPassword);
+        creditService.payingAmountWithCredit(offers, customer);
     }
 
     @Override
-    public void ratingAndReviewForExpert(RateAndReview rateAndReview , String customerEmail , String customerPassword , Order order, Offer offer) {
-        Customer customerByEmailAndPassword = customerRepository.findCustomerByEmailAndPassword(customerEmail, customerPassword);
-        rateAndReviewService.ratingAndReviewForExpert(rateAndReview ,  customerByEmailAndPassword , order , offer);
+    public void ratingAndReviewForExpert(RateAndReview rateAndReview, String customerEmail, String customerPassword, Order order, Offer offer) {
+        Customer customer = customerRepository.findCustomerByEmailAndPassword(customerEmail, customerPassword);
+
+        rateAndReviewService.ratingAndReviewForExpert(rateAndReview, customer, order, offer);
     }
 
     @Override
-    public void executionTimeOfTaskAndScheduledTime(String customerEmail, String customerPassword, long orderId) {
-        Customer customerByEmailAndPassword = customerRepository.findCustomerByEmailAndPassword(customerEmail, customerPassword);
-        rateAndReviewService.executionTimeOfTaskAndScheduledTime(customerEmail , customerPassword , orderId);
+    public void executionTimeOfTaskAndScheduledTime(List<Offer> offers, long orderId) {
+        Order order = orderService.findOrderById(orderId);
+        rateAndReviewService.executionTimeOfTaskAndScheduledTime(offers, order);
     }
 
 

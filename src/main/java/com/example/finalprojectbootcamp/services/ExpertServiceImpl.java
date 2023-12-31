@@ -4,6 +4,7 @@ import com.example.finalprojectbootcamp.repositories.ExpertRepository;
 import com.example.finalprojectbootcamp.exceptions.MyExceptions;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,9 +14,10 @@ public class ExpertServiceImpl implements ExpertService {
     private OrderService orderService;
     private RateAndReviewService rateAndReviewService;
     private SubServiceService subServiceService;
-
-    public ExpertServiceImpl(ExpertRepository expertRepository) {
+    private final PasswordEncoder passwordEncoder ;
+    public ExpertServiceImpl(ExpertRepository expertRepository, PasswordEncoder passwordEncoder) {
         this.expertRepository = expertRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -36,6 +38,7 @@ public class ExpertServiceImpl implements ExpertService {
 
     @Override
     public void addANewExpert(Expert expert) {
+        expert.setPassword(passwordEncoder.encode(expert.getPassword()));
         expertRepository.save(expert) ;
     }
 
@@ -74,16 +77,15 @@ public class ExpertServiceImpl implements ExpertService {
         return orderService.showAllOrdersForExpert() ;
     }
     @Override
-
     @Transactional
     public void submittingOfferForOrder(String expertEmail , String expertPassword, long orderId, Offer offer) {
-        Expert expert = findExpertByEmailAndPassword(expertEmail ,expertPassword );
+        Expert expert = findExpertByEmailAndPassword(expertEmail ,expertPassword);
         MyExceptions.expertAccess(expert.isAccessToTheSystem()) ;
         MyExceptions.checkExpertStatus (expert.getExpertStatus()) ;
 
 
-        double avgRating = rateAndReviewService.checkExpertRating(expert.getId()) ;
-        MyExceptions.negativeRating(avgRating);
+        //double avgRating = rateAndReviewService.checkExpertRating(expert.getId()) ;
+      //  MyExceptions.negativeRating(avgRating);
 
 
         Order order = orderService.findOrderById(orderId);
@@ -112,6 +114,14 @@ public class ExpertServiceImpl implements ExpertService {
         subServiceByTitle.setExpert(expert);
         expert.setSubServices(subServiceByTitle);
         expertRepository.save(expert) ;
+    }
+
+
+
+    @Override
+    public List<Expert> searchingAndFilteringTheExperts(Expert expert) {
+
+        return null ;
     }
 
 
