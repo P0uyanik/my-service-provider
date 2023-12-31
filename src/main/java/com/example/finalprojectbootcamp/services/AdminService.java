@@ -7,30 +7,37 @@ import java.util.List;
 
 
 public interface AdminService {
-    Admin findAdminByEmailAndAndPassword(String email , String password) ;
-    /*3*/ void addANewSubService (SubService subService , Service service ) ;
-    /*3*/ void addANewService ( Service service) ;
+    Admin findAdminByEmailAndAndPassword(String email, String password);
 
-    /*4*/   void deleteExpert(long id)  ;
+    void addANewSubService(SubService subService, Service service);
 
+    void addANewService(Service service);
 
+    void deleteExpert(long id);
 
+    void selectingSubServiceForExpert(String email, String subServicesTitle);// admin
 
-    void selectingSubServiceForExpert (String email , String subServicesTitle) ;// admin
+    List<Service> np();
 
+    List<Service> pp();
 
-    /*5-1*/ List<Service> np() ;
-    /*5-2*/ List<Service> pp() ;
+    Page<SubService> findSubServicesWithPageSizeAndElementSize(int pageSize, int elementSize);
 
-    /*7-1*/  Page<SubService> findSubServicesWithPageSizeAndElementSize(int pageSize, int elementSize) ;
-    /*7-2*/ List<SubService> ppSubServices() ;
-    /*7-3*/ List<SubService> npSubServices() ;
-    List<SubService>findAllSubServices() ;
-    /*5-1*/ int updateSubServiceByDescription(String name, String description);
-    /*6*/ List<Expert> findExpertByExpertStatus();
-    /*6-1*/ int updateExpertStatusByEmail(String email)  ;
-    List <Expert> searchingAndFilteringTheExperts (Expert expert) ;
-    List <Customer> searchingAndFilteringTheCustomers (Customer customer) ;
+    List<SubService> ppSubServices();
+
+    List<SubService> npSubServices();
+
+    List<SubService> findAllSubServices();
+
+    int updateSubServiceByDescription(String name, String description);
+
+    List<Expert> findExpertByExpertStatus();
+
+    int updateExpertStatusByEmail(String email);
+
+    List<Expert> searchingAndFilteringTheExperts(Expert expert);
+
+    List<Customer> searchingAndFilteringTheCustomers(Customer customer);
 
     Page<Service> findServicesWithPageSizeAndElementSize(int pageSize, int elementSize);
 }

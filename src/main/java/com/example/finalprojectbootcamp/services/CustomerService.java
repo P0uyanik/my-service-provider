@@ -9,41 +9,47 @@ import java.util.List;
 
 public interface CustomerService {
 
-   /*1*/ void addANewCustomer (Customer customer) ; // Customer
-   /*2*/ int updateCustomerByPassword( String email  , String oldPassword ,  String password) ; // customer
+    void addANewCustomer(Customer customer);
+
+    int updateCustomerByPassword(String email, String oldPassword, String password);
 
 
+    List<Service> npService();
 
-   /*7-1*/public List<Service> npService() ; // customer
-   /*7-2*/public List<Service> ppService() ; // customer
-   /*7-1*/  Page<SubService> findSubServicesWithPageSizeAndElementSize(int pageSize, int elementSize); // customer
-   /*7-2*/ List<SubService> ppSubService() ; // customer
-   /*7-3*/ List<SubService> npSubService() ; // customer
-   /*7.1-1*/ List<Service> findAllServices() ; // customer
-   Customer findCustomerByEmailAndPassword(String email ,String  password) ; // customer
-   /*7.1-2*/void registrationOfTheOrder (String customerEmail , String customerPassword , String  serviceName , String subServiceName  , Order order ) ; //customer
+    List<Service> ppService();
 
-   /*11*/    public List<Offer> customerOffers(String customerEmail , String customerPassword , long orderId) ; // // customer
-   /*13*/ void selectingOffer(String customerEmail , String customerPassword , long orderId, long offerId) ; // // customer
+    Page<SubService> findSubServicesWithPageSizeAndElementSize(int pageSize, int elementSize);
 
+    List<SubService> ppSubService();
 
-   /*13*/    void cancellingAnOffer(String customerEmail , String customerPassword , long orderId, long offerId) ; // customer
+    List<SubService> npSubService();
 
+    List<Service> findAllServices();
 
-   /*14*/    void changingTheOrderStatusToStarted(String customerEmail , String customerPassword , long orderId);  // customer
+    Customer findCustomerByEmailAndPassword(String email, String password);
 
+    void registrationOfTheOrder(String customerEmail, String customerPassword, String serviceName, String subServiceName, Order order);
 
-   void changingTheOrderStatusToCompleted(String customerEmail , String customerPassword , long orderId , RateAndReview rateAndReview ) ; // customer
+    List<Offer> customerOffers(String customerEmail, String customerPassword, long orderId);
 
-   /*16*/       void submitComment(List<Offer> offers , Order order, RateAndReview rateAndReview)    ; // customer
+    void selectingOffer(String customerEmail, String customerPassword, long orderId, long offerId);
 
-  List <Customer> searchingAndFilteringTheCustomers (Customer customer) ; // admin
+    void cancellingAnOffer(String customerEmail, String customerPassword, long orderId, long offerId);
+
+    void changingTheOrderStatusToStarted(String customerEmail, String customerPassword, long orderId);
 
 
-   void payingAmountWithCredit (String customerEmail ,  String customerPassword , long orderId ) ; // customer
+    void changingTheOrderStatusToCompleted(String customerEmail, String customerPassword, long orderId, RateAndReview rateAndReview);
+
+    void submitComment(List<Offer> offers, Order order, RateAndReview rateAndReview);
+
+    List<Customer> searchingAndFilteringTheCustomers(Customer customer);
 
 
-   /*10*/void ratingAndReviewForExpert(RateAndReview rateAndReview , String customerEmail , String customerPassword , Order order, Offer offer) ; //customer
-   /*15*/ void executionTimeOfTaskAndScheduledTime (List<Offer> offers, long orderId )  ; // customer automat
+    void payingAmountWithCredit(String customerEmail, String customerPassword, long orderId);
+
+    void ratingAndReviewForExpert(RateAndReview rateAndReview, String customerEmail, String customerPassword, Order order, Offer offer);
+
+    void executionTimeOfTaskAndScheduledTime(List<Offer> offers, long orderId);
 }
 
