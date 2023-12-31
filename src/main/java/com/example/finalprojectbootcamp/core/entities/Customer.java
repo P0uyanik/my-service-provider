@@ -30,7 +30,7 @@ public class Customer extends User {
     }
 
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "credit_fk" , referencedColumnName = "id")
     private Credit credit ;
 

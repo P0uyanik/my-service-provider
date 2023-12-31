@@ -29,7 +29,7 @@ public class RateAndReview extends Auditing {
         this.rater = rater ;
     }
 
-    protected RateAndReview() {
+    public RateAndReview() {
     }
 
     public int getRating() {

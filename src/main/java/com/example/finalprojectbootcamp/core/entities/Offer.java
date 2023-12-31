@@ -24,7 +24,7 @@ public class Offer extends Auditing {
     private LocalDate startTime;
     private int durationOfTheJobInDays;
 
-    protected Offer() {
+    public Offer() {
     }
 
     public BigDecimal getSuggestedPrice() {

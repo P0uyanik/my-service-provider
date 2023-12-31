@@ -58,7 +58,7 @@ public class Expert extends User {
         return this ;
     }
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "credit_fk" , referencedColumnName = "id")
     private Credit credit ;
 
