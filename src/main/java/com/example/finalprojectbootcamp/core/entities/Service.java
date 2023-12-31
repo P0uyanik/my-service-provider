@@ -22,7 +22,7 @@ public class Service extends Auditing {
         this.name = name;
     }
 
-    protected Service() {
+    public Service() {
     }
 
     public String getName() {
