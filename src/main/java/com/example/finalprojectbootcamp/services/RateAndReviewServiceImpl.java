@@ -52,24 +52,21 @@ public class RateAndReviewServiceImpl implements RateAndReviewService {
 
     }
 
-    ////////// in munddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
     @Override
-    public void executionTimeOfTaskAndScheduledTime(String customerEmail , String customerPassword, long orderId) {
-        List<Offer> offers = customerService.customerOffers(customerEmail , customerPassword , orderId);
-        Order order = orderService.findOrderById(orderId);
-        for (Offer offer : offers) {
-            if (offer.getOfferStatus() == OfferStatus.ACTIVE) {
-                Expert expert = offer.getExpert();
-                RateAndReview rateAndReview = new RateAndReview(-1, Rater.SYSTEM);
-
-                LocalDate completionDateOfTask = order.getCompletionDateOfTask();
-                LocalDate executionTime = order.getExecutionTime();
-                // ekhtelaf bayad inja zekr shavad
-                rateAndReviewRepository.updateRateAndReviewByMyProcedure(1010);
-                Expert expert1 = expert.setRateAndReviews(rateAndReview);
-                expertService.addANewExpert(expert);
-                // ekhtelafe in ha har cheghard ke hast
-            }
+    public void executionTimeOfTaskAndScheduledTime(List<Offer> offers ,  Order order ) {
+        Offer selectedOffer = offers.stream().filter(offer -> offer.getOfferStatus() == OfferStatus.ACTIVE).findFirst().orElse(null);
+        MyExceptions.isOfferExists(selectedOffer);
+        Expert expert = selectedOffer.getExpert();
+        LocalDate completionDateOfTask = order.getCompletionDateOfTask();
+        LocalDate executionTime = order.getExecutionTime();
+        int days = Period.between(executionTime, completionDateOfTask).getDays();
+        if (days < 0 )
+        {
+            RateAndReview rateAndReview = new RateAndReview(days , Rater.SYSTEM);
+            rateAndReview.setExpert(expert);
+            rateAndReviewRepository.save(rateAndReview) ;
+        }
+    }
 
     @Override
     public double checkExpertRating(long expertId) {
