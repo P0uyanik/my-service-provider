@@ -7,6 +7,8 @@ import java.util.List;
 
 
 public interface AdminService {
+
+    void addANewAdmin ( Admin admin ) ;
     Admin findAdminByEmailAndAndPassword(String email, String password);
 
     void addANewSubService(SubService subService, Service service);

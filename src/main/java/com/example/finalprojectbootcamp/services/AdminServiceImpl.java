@@ -6,6 +6,7 @@ import com.example.finalprojectbootcamp.repositories.AdminRepository;
 import com.example.finalprojectbootcamp.exceptions.MyExceptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 @org.springframework.stereotype.Service
@@ -16,7 +17,8 @@ public class AdminServiceImpl implements AdminService {
     private SubServiceService subServiceService;
     private ExpertService expertService;
     private CustomerService customerService;
-
+    @Autowired
+    private PasswordEncoder passwordEncoder ;
 
     @Autowired
     public void setService(ServiceServiceImpl service)
@@ -44,6 +46,12 @@ public class AdminServiceImpl implements AdminService {
 
     public AdminServiceImpl(AdminRepository adminRepository) {
         this.adminRepository = adminRepository;
+    }
+
+    @Override
+    public void addANewAdmin(Admin admin) {
+        admin.setPassword(passwordEncoder.encode(admin.getPassword())) ;
+        adminRepository.save(admin) ;
     }
 
     @Override
