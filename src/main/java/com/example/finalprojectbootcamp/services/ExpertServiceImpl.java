@@ -117,11 +117,17 @@ public class ExpertServiceImpl implements ExpertService {
     }
 
 
-
     @Override
-    public List<Expert> searchingAndFilteringTheExperts(Expert expert) {
+    public Iterable<Expert> searchingSortedExperts() {
+        QExpert expertForFilter = QExpert.expert;
+         Iterable<Expert> all = expertRepository.findAll(
+                expertForFilter.name.asc(),
+                expertForFilter.lastname.asc(),
+                expertForFilter.username.asc(),
+                expertForFilter.email.asc()
+        );
+        return all ;
 
-        return null ;
     }
 
 

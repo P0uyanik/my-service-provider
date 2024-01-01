@@ -26,7 +26,7 @@ public interface ExpertService {
 
     double checkExpertRating(long expertId);
 
-    List<Expert> searchingAndFilteringTheExperts(Expert expert);
+    Iterable<Expert> searchingSortedExperts();
 
     void selectingSubServiceForExpert(String email, String subServicesTitle);
 

@@ -130,13 +130,13 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<Expert> searchingAndFilteringTheExperts(Expert expert) {
-        return expertService.searchingAndFilteringTheExperts(expert);
+    public Iterable<Expert> searchingSortedExperts() {
+        return expertService.searchingSortedExperts();
     }
 
     @Override
-    public List<Customer> searchingAndFilteringTheCustomers(Customer customer) {
-        return customerService.searchingAndFilteringTheCustomers(customer) ;
+    public Iterable<Customer> searchingSortedCustomers() {
+        return customerService.searchingSortedCustomers() ;
     }
 
     @Override

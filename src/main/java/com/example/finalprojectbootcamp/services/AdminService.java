@@ -37,9 +37,9 @@ public interface AdminService {
 
     int updateExpertStatusByEmail(String email);
 
-    List<Expert> searchingAndFilteringTheExperts(Expert expert);
+    Iterable<Expert> searchingSortedExperts();
 
-    List<Customer> searchingAndFilteringTheCustomers(Customer customer);
+    Iterable<Customer> searchingSortedCustomers();
 
     Page<Service> findServicesWithPageSizeAndElementSize(int pageSize, int elementSize);
 }

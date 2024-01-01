@@ -211,9 +211,10 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<Customer> searchingAndFilteringTheCustomers(Customer customer) {
-
-        return null;
+    public Iterable<Customer> searchingSortedCustomers() {
+        QCustomer customer = QCustomer.customer;
+        Iterable<Customer> all = customerRepository.findAll(customer.name.asc(), customer.lastname.asc(), customer.username.asc(), customer.email.asc());
+        return all;
     }
 
     @Override

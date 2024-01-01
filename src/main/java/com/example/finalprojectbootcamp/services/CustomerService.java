@@ -43,7 +43,7 @@ public interface CustomerService {
 
     void submitComment(List<Offer> offers, Order order, RateAndReview rateAndReview);
 
-    List<Customer> searchingAndFilteringTheCustomers(Customer customer);
+    Iterable<Customer> searchingSortedCustomers();
 
 
     void payingAmountWithCredit(String customerEmail, String customerPassword, long orderId);
