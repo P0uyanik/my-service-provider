@@ -3,6 +3,7 @@ package com.example.finalprojectbootcamp.dto;
 import lombok.*;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Setter
 @Getter
@@ -11,4 +12,5 @@ import java.io.Serializable;
 @ToString
 public class CreditDto implements Serializable {
     private  String str ;
+    private BigDecimal creditAmount ;
 }
