@@ -1,5 +1,6 @@
 package com.example.finalprojectbootcamp.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.io.Serializable;
@@ -10,6 +11,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @ToString
 public class RateAndReviewDto implements Serializable {
+    @NotBlank
     private int rating;
     private String review;
 }

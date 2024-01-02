@@ -37,7 +37,6 @@ public class SubServiceServiceImpl implements SubServiceService {
     public List<SubService> np() {
         currentPage = currentPage.map(page ->subServiceRepository.findAll(page.nextOrLastPageable())) ;
         return currentPage.get().getContent() ;
-
     }
 
     @Override

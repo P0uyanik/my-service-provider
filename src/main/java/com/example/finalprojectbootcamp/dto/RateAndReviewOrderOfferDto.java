@@ -1,9 +1,13 @@
 package com.example.finalprojectbootcamp.dto;
 
+import jakarta.validation.Valid;
+import org.springframework.validation.annotation.Validated;
+
 public class RateAndReviewOrderOfferDto {
-    private RateAndReviewDto rateAndReviewDto ;
-    private  OrderDto orderDto ;
-    private OfferDto offerDto ;
+
+    @Valid private RateAndReviewDto rateAndReviewDto ;
+    @Valid private  OrderDto orderDto ;
+    @Valid private OfferDto offerDto ;
 
 
 

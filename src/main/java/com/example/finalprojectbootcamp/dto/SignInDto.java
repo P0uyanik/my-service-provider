@@ -1,5 +1,7 @@
+
 package com.example.finalprojectbootcamp.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +14,9 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SignInDto implements Serializable {
+    @NotBlank
     private String email ;
+    @NotBlank
     private String password ;
 
 }

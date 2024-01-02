@@ -83,11 +83,6 @@ public class ExpertServiceImpl implements ExpertService {
         MyExceptions.expertAccess(expert.isAccessToTheSystem()) ;
         MyExceptions.checkExpertStatus (expert.getExpertStatus()) ;
 
-
-        //double avgRating = rateAndReviewService.checkExpertRating(expert.getId()) ;
-      //  MyExceptions.negativeRating(avgRating);
-
-
         Order order = orderService.findOrderById(orderId);
 
 

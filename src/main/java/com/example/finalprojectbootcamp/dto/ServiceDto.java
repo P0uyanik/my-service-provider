@@ -1,5 +1,6 @@
 package com.example.finalprojectbootcamp.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,6 +14,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ServiceDto implements Serializable {
-    @NotEmpty
+    @NotBlank
     private String name ;
 }

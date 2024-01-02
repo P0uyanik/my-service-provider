@@ -1,5 +1,6 @@
 package com.example.finalprojectbootcamp.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SubServiceDto implements Serializable {
-    private String title ;
-    private BigDecimal price ;
-    private String description ;
+    @NotBlank private String title ;
+    @NotBlank private BigDecimal price ;
+    @NotBlank private String description ;
 }
