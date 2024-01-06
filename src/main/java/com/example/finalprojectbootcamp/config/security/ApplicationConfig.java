@@ -1,6 +1,7 @@
 package com.example.finalprojectbootcamp.config.security;
 
 import com.example.finalprojectbootcamp.config.security.auth.CustomUserDetailsService;
+import com.example.finalprojectbootcamp.config.security.auth.JwtConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,8 +14,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -27,7 +30,8 @@ public class ApplicationConfig {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-
+    @Autowired
+    private JwtConverter jwtConverter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -35,11 +39,14 @@ public class ApplicationConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(req -> req.requestMatchers("/admin/**").hasRole("ADMIN"))
-                .authorizeHttpRequests(req -> req.requestMatchers("/customer/**").hasAnyRole("CUSTOMER", "ADMIN")/**/)
-                .authorizeHttpRequests(req -> req.requestMatchers("/expert/**").hasAnyRole("EXPERT", "ADMIN"))
-                .authorizeHttpRequests(req -> req.anyRequest().permitAll())
-                .httpBasic(Customizer.withDefaults());
+          .authorizeHttpRequests(req -> req.requestMatchers("/admin/**").hasRole("ADMIN"))
+        .authorizeHttpRequests(req -> req.requestMatchers("/customer/**").hasAnyRole("CUSTOMER", "ADMIN")/**/)
+           .authorizeHttpRequests(req -> req.requestMatchers("/expert/**").hasAnyRole("EXPERT", "ADMIN"))
+          .authorizeHttpRequests(req -> req.anyRequest().permitAll()) ;
+//                .httpBasic(Customizer.withDefaults());
+
+        httpSecurity.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwtAuthenticationConverter->jwtAuthenticationConverter.jwtAuthenticationConverter(jwtConverter)));
+        httpSecurity.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         return httpSecurity.build();
     }
 
