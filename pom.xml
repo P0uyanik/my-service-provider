@@ -43,6 +43,11 @@
         </dependency>
 
 
+
+
+
+
+
         <!-- GRAPH QL -->
         <!-- https://mvnrepository.com/artifact/com.graphql-java/graphql-spring-boot-starter -->
         <dependency>
@@ -150,6 +155,20 @@
             <artifactId>querydsl-apt</artifactId>
             <version>5.0.0</version>
             <classifier>jakarta</classifier>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-resource-server -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-oauth2-resource-server</artifactId>
+            <version>6.2.1</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-jose -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-oauth2-jose</artifactId>
+            <version>6.2.1</version>
         </dependency>
 
 
